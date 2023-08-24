@@ -35,7 +35,7 @@ model_charging.materials = [beo, be]
 
 vertices = np.concatenate(
     [
-        np.arange(*beo.borders, step=0.2e-9),
+        np.arange(*beo.borders, step=0.5e-9),
         [beo.borders[-1]],
         np.arange(*be.borders, step=0.5e-5),
         [be.borders[-1]]
