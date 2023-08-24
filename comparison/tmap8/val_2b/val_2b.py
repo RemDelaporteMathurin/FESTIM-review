@@ -52,7 +52,7 @@ tds_duration = (1073 - 300)/(temperature_ramp)
 
 
 enclosure_pressure = sp.Piecewise(
-    (13300.0, F.t < time_charging),
+    (13300.0, F.t < time_charging + 15),  # + 15 is from tmap8's case.
     (1e-6, F.t < time_start_tds),
     (1e-3, True),
 )
@@ -118,6 +118,7 @@ model_desorb.settings = model_charging.settings
 model_desorb.settings.final_time = time_start_tds + tds_duration
 
 model_desorb.dt = model_charging.dt
+model_desorb.stepsize_stop_max = 10
 
 model_desorb.T = model_charging.T
 
