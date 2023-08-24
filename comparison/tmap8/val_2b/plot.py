@@ -34,7 +34,12 @@ t_loading = data_loading["ts"]
 temp1_loading = data_loading["Average_T_volume_1"]
 temp2_loading = data_loading["Average_T_volume_2"]
 
+data_exp = np.genfromtxt("results/experimental_data.csv", names=True, delimiter=",")
+temp_exp = data_exp["temp"]
+flux_exp = data_exp["flux"] * 1e15  # tmap8 people scaled it
+
 plt.plot(temp1, desorption_flux)
 # plt.plot(temp1_tmap8[idx_tmap8], desorption_flux_tmap8[idx_tmap8])
 plt.plot(temp1_tmap8_short_timestep[idx_tmap8_short_timestep], desorption_flux_tmap8_short_timestep[idx_tmap8])
+plt.scatter(temp_exp, flux_exp)
 plt.show()
