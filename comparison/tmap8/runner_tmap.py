@@ -9,7 +9,7 @@ def run_external_script(script_path):
     except subprocess.CalledProcessError as e:
         print(f"Error running the executable: {e}")
 
-nb_exec = 1
+nb_exec = 2
 
 case_to_path = {
     "ver-1e": 'ver_1e/ver-1e.i',
@@ -28,7 +28,10 @@ with open('comparison_results.json') as f:
     data = json.load(f)
 
 for case, time in case_to_time.items():
-    data[case]['tmap'] = time
+    if case not in data:
+        data[case] = {'festim': 0, 'tmap': time}
+    else:
+        data[case]['tmap'] = time
 
 with open('comparison_results.json', "w") as f:
     json.dump(data, f, indent=4)
