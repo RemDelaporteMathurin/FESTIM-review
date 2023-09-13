@@ -10,7 +10,7 @@ def run_external_script(script_path):
     except subprocess.CalledProcessError as e:
         print(f"Error running the executable: {e}")
 
-nb_exec = 2
+nb_exec = 5
 
 case_to_path = {
     "ver-1e": 'ver_1e/ver-1e.i',

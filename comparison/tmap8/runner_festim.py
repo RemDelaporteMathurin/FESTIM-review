@@ -9,7 +9,7 @@ def run_external_script(script_path):
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
 
-nb_exec = 2
+nb_exec = 5
 
 case_to_path = {
     "ver-1e": 'ver_1e/tmap8_ver1e.py',
