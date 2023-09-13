@@ -2,10 +2,11 @@ import subprocess
 import timeit
 import json
 
+path_to_tmap_executable = './tmap8-opt'
 
 def run_external_script(script_path):
     try:
-        subprocess.run(['./tmap8-opt', '-i', script_path])
+        subprocess.run([path_to_tmap_executable, '-i', script_path])
     except subprocess.CalledProcessError as e:
         print(f"Error running the executable: {e}")
 
