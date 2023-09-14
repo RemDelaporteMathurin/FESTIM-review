@@ -24,7 +24,17 @@ data_exp = np.genfromtxt("results/experimental_data.csv", names=True, delimiter=
 temp_exp = data_exp["temp"]
 flux_exp = data_exp["flux"] * 1e15  # tmap8 people scaled it
 
-plt.plot(temp1, desorption_flux)
-plt.plot(temp1_tmap8, desorption_flux_tmap8)
-plt.scatter(temp_exp, flux_exp)
+plt.plot(temp1, desorption_flux, label="FESTIM")
+plt.plot(temp1_tmap8, desorption_flux_tmap8, label="TMAP8")
+plt.scatter(temp_exp, flux_exp, alpha=0.5, label="experiment")
+
+plt.xlim(650, 1050)
+plt.ylim(bottom=0)
+plt.xlabel("Time (s)")
+plt.ylabel("Desorption flux (m$^{-2}$ s$^{-1}$)")
+plt.grid(True, alpha=0.3)
+plt.legend()
+plt.gca().spines[['right', 'top']].set_visible(False)
+for ext in ["png", "svg", "pdf"]:
+    plt.savefig(f"val-2b-results.{ext}")
 plt.show()
