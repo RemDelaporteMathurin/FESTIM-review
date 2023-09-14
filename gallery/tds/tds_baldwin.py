@@ -124,14 +124,14 @@ trap_2 = np.array(trap_2)[indexes]
 contribution_trap_1 = -np.diff(trap_1) / np.diff(t)
 contribution_trap_2 = -np.diff(trap_2) / np.diff(t)
 
-plt.plot(t, flux_total, linewidth=3)
+plt.plot(t, flux_total, linewidth=3, label='FESTIM')
 plt.plot(t[1:], contribution_trap_1, linestyle="--", color="grey", alpha=0.5)
 plt.fill_between(t[1:], 0, contribution_trap_1, facecolor="grey", alpha=0.1)
 plt.plot(t[1:], contribution_trap_2, linestyle="--", color="grey", alpha=0.5)
 plt.fill_between(t[1:], 0, contribution_trap_2, facecolor="grey", alpha=0.1)
 
 exp_data = np.genfromtxt("ref_baldwin.csv", delimiter=",")
-plt.scatter(exp_data[:, 0], exp_data[:, 1], alpha=0.6)
+plt.scatter(exp_data[:, 0], exp_data[:, 1], alpha=0.6, label='experiment')
 
 plt.xlim(left=resting_time)
 plt.ylim(bottom=0)
@@ -139,6 +139,7 @@ plt.grid(alpha=0.3)
 plt.ylabel(r"Desorption flux (m$^{-2}$ s$^{-1}$)")
 plt.xlabel(r"Time (s)")
 plt.gca().spines[["right", "top"]].set_visible(False)
+plt.legend()
 
 for ext in ["png", "svg", "pdf"]:
     plt.savefig(f"tds_baldwin.{ext}")
