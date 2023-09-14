@@ -38,16 +38,16 @@ model.sources = [source_term]
 w_atom_density = 6.3e28  # atom/m3
 
 trap_1 = F.Trap(
-    k_0=4.1e-7 / (1.1e-10**2 * 6 * w_atom_density),
-    E_k=0.39,
+    k_0=tungsten.D_0 / (1.1e-10**2 * 6 * w_atom_density),
+    E_k=tungsten.E_D,
     p_0=1e13,
     E_p=0.87,
     density=1.3e-3 * w_atom_density,
     materials=tungsten,
 )
 trap_2 = F.Trap(
-    k_0=4.1e-7 / (1.1e-10**2 * 6 * w_atom_density),
-    E_k=0.39,
+    k_0=tungsten.D_0 / (1.1e-10**2 * 6 * w_atom_density),
+    E_k=tungsten.E_D,
     p_0=1e13,
     E_p=1.0,
     density=4e-4 * w_atom_density,
