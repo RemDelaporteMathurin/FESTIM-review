@@ -27,4 +27,6 @@ plt.gca().spines[['left', 'right', 'top', 'bottom']].set_visible(False)
 plt.grid(True, which='major', axis="x", alpha=0.3)
 plt.xlabel("Execution time (s)")
 plt.tight_layout()
+for ext in ["png", "svg", "pdf"]:
+    plt.savefig(f"tmap8_comparison_results.{ext}")
 plt.show()
