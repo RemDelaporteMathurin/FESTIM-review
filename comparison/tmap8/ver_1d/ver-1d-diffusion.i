@@ -102,7 +102,7 @@ cl=3.1622e18
 
 [Executioner]
   type = Transient
-  end_time = 3
+  end_time = 10
   dt = .01
   dtmin = .01
   solve_type = NEWTON
