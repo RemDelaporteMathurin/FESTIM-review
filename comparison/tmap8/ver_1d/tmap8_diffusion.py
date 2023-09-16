@@ -14,9 +14,9 @@ my_model.materials = F.Material(id=1, D_0=1, E_D=0)
 
 N = 3.1622e22
 scale = 1e-4 * N
-lambda_val = 3.16e-8
+
 my_model.traps = F.Trap(
-    k_0=1 / (lambda_val**2 * N),
+    k_0=1e15/(N/scale),
     E_k=0,
     p_0=1e13,
     E_p=8.6e-3,
@@ -33,7 +33,7 @@ my_model.boundary_conditions = [
 
 my_model.dt = F.Stepsize(initial_value=1e-2)
 my_model.settings = F.Settings(
-    absolute_tolerance=1e-10,
+    absolute_tolerance=1e-3,
     relative_tolerance=1e-10,
     final_time=10,
 )
@@ -47,7 +47,7 @@ xdmf_exports = [
     F.XDMFExport("1", checkpoint=False),
 ]
 
-my_model.exports = [derived_quantities] #+ xdmf_exports
+my_model.exports = [derived_quantities] # + xdmf_exports
 # my_model.log_level = 20
 my_model.initialise()
 my_model.run()
