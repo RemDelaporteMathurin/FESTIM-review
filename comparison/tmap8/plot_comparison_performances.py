@@ -20,7 +20,6 @@ plt.bar_label(barfestim, padding=8, fmt='%.1f s', fontsize=10, color=barfestim.p
 plt.bar_label(bartmap, padding=8, fmt='%.1f s', fontsize=10, color=bartmap.patches[0].get_facecolor())
 
 plt.gca().set_yticks(ypos + width/2, labels=labels)
-plt.gca().set_xticks([20, 40, 60])
 
 plt.legend(bbox_to_anchor=(0.7, 1.1), frameon=False, ncol=2)
 plt.gca().spines[['left', 'right', 'top', 'bottom']].set_visible(False)
