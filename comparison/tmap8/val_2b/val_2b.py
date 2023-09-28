@@ -122,8 +122,8 @@ derived_quantities = F.DerivedQuantities(
 )
 
 model_desorb.exports = [
-    F.XDMFExport("solute", checkpoint=False, filename="mobile_concentration_desorb.xdmf"),
-    F.XDMFExport("T", checkpoint=False, filename="temperature_desorb.xdmf"),
+    # F.XDMFExport("solute", checkpoint=False, filename="mobile_concentration_desorb.xdmf"),
+    # F.XDMFExport("T", checkpoint=False, filename="temperature_desorb.xdmf"),
     derived_quantities
 ]
 # model_desorb.log_level = 20
