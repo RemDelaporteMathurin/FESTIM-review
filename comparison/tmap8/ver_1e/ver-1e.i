@@ -62,13 +62,18 @@
 # point in SiC layer 15.75 micrometer away from the
 # PyC-SiC interface
 
-# [Postprocessors]
-#   [conc_point1]
-#     type = PointValue
-#     variable = u
-#     point = '48.75e-6 0 0'
-#   []
-# []
+[Postprocessors]
+  [conc_point1]
+    type = PointValue
+    variable = u
+    point = '48.75e-6 0 0'
+  []
+  [conc_point2]
+    type = PointValue
+    variable = u
+    point = '20e-6 0 0'
+  []
+[]
 
 [Executioner]
   type = Transient
@@ -93,4 +98,5 @@
 
 [Outputs]
   exodus = true
+  csv = true
 []
