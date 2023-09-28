@@ -1,5 +1,4 @@
 import festim as F
-import fenics as f
 import numpy as np
 import sympy as sp
 
@@ -141,8 +140,4 @@ model_desorb.exports = [
 # model_desorb.log_level = 20
 model_desorb.initialise()
 model_desorb.t = time_start_tds
-# print(type(model_desorb.h_transport_problem.mobile))
-# mobile_conc_charging = model_charging.h_transport_problem.mobile.solution
-
-# model_desorb.h_transport_problem.mobile.previous_solution.assign(mobile_conc_charging)
 model_desorb.run()
