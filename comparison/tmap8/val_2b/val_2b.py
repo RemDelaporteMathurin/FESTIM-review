@@ -81,20 +81,9 @@ model_charging.settings = F.Settings(
 
 model_charging.dt = F.Stepsize(initial_value=10, stepsize_change_ratio=1.1, t_stop=time_charging, stepsize_stop_max=60)
 
-derived_quantities = F.DerivedQuantities(
-    [
-        F.AverageVolume("T", volume=1),
-        F.AverageVolume("T", volume=2),
-    ],
-    filename="results/derived_quantities_loading.csv"
-)
-
 model_charging.exports = [
-    F.XDMFExport("solute", checkpoint=False),
-    F.XDMFExport("solute", filename="mobile_concentration_checkpoint.xdmf", checkpoint=True),
-    F.XDMFExport("T", checkpoint=False),
+    F.XDMFExport("solute", filename="mobile_concentration_checkpoint.xdmf", checkpoint=True, mode="last"),
     F.TXTExport(field="solute", label="solute", folder="results", times=[time_charging]),
-    derived_quantities
 ]
 
 # model_charging.log_level = 20
@@ -117,7 +106,6 @@ model_desorb.settings = model_charging.settings
 model_desorb.settings.final_time = time_start_tds + tds_duration
 
 model_desorb.dt = model_charging.dt
-model_desorb.stepsize_stop_max = 10
 
 model_desorb.T = model_charging.T
 
@@ -133,8 +121,8 @@ derived_quantities = F.DerivedQuantities(
 )
 
 model_desorb.exports = [
-    F.XDMFExport("solute", checkpoint=False, filename="mobile_concentration_desorb.xdmf"),
-    F.XDMFExport("T", checkpoint=False, filename="temperature_desorb.xdmf"),
+    # F.XDMFExport("solute", checkpoint=False, filename="mobile_concentration_desorb.xdmf"),
+    # F.XDMFExport("T", checkpoint=False, filename="temperature_desorb.xdmf"),
     derived_quantities
 ]
 # model_desorb.log_level = 20
