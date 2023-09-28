@@ -2,18 +2,14 @@ import meshio
 
 mesh = meshio.read("mesh_3D_6mm.med")
 
+# WRITE TO GMSH FORMAT
+
 cell_data = {"gmsh:geometrical": [
     -1 * mesh.cell_data_dict["cell_tags"]['line'],
     -1 * mesh.cell_data_dict["cell_tags"]['tetra'],
     -1 * mesh.cell_data_dict["cell_tags"]['triangle']
     ]
 }
-
-correspondance_dict = mesh.cell_tags
-print(correspondance_dict)
-
-
-# WRITE TO GMSH FORMAT
 
 meshio.write_points_cells(
     "mesh.msh",
@@ -44,3 +40,7 @@ for mesh_block in mesh.cells:
             [mesh_block],
             cell_data={"f": [-1 * mesh.cell_data_dict["cell_tags"][facet_type]]},
         )
+
+correspondance_dict = mesh.cell_tags
+
+print(correspondance_dict)
