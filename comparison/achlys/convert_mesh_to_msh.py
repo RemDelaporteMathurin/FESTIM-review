@@ -8,6 +8,10 @@ cell_data = {"gmsh:geometrical": [
     -1 * mesh.cell_data_dict["cell_tags"]['triangle']
     ]
 }
+
+correspondance_dict = mesh.cell_tags
+print(correspondance_dict)
+
 meshio.write_points_cells(
     "mesh.msh",
     mesh.points,
