@@ -19,6 +19,16 @@ meshio.write_points_cells(
     file_format='gmsh22'
 )
 
+
+# write to STL
+
+meshio.write_points_cells(
+    "mesh.stl",
+    mesh.points,
+    mesh.cells,
+)
+
+
 # WRITE TO XDMF FORMAT
 
 cell_data_types = mesh.cell_data_dict["cell_tags"].keys()
