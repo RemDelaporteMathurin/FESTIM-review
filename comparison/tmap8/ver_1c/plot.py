@@ -24,5 +24,6 @@ plt.grid(True, which='major', alpha=0.3)
 
 plt.xlabel('Time (s)')
 plt.ylabel('Mobile concentration')
-
+for ext in ["png", "svg", "pdf"]:
+    plt.savefig(f"ver-1c-results.{ext}")
 plt.show()
