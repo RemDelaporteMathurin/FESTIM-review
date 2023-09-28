@@ -106,7 +106,6 @@ model_desorb.settings = model_charging.settings
 model_desorb.settings.final_time = time_start_tds + tds_duration
 
 model_desorb.dt = model_charging.dt
-model_desorb.stepsize_stop_max = 10
 
 model_desorb.T = model_charging.T
 
