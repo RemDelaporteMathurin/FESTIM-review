@@ -8,6 +8,11 @@ cell_data = {"gmsh:geometrical": [
     -1 * mesh.cell_data_dict["cell_tags"]['line'],
     -1 * mesh.cell_data_dict["cell_tags"]['tetra'],
     -1 * mesh.cell_data_dict["cell_tags"]['triangle']
+    ],
+    "gmsh:physical": [
+    -1 * mesh.cell_data_dict["cell_tags"]['line'],
+    -1 * mesh.cell_data_dict["cell_tags"]['tetra'],
+    -1 * mesh.cell_data_dict["cell_tags"]['triangle']
     ]
 }
 
@@ -16,7 +21,8 @@ meshio.write_points_cells(
     mesh.points,
     mesh.cells,
     cell_data=cell_data,
-    file_format='gmsh22'
+    file_format='gmsh22',
+    binary=False
 )
 
 
