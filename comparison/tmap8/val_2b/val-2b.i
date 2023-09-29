@@ -196,7 +196,7 @@ scale = 1e20
   [max_time_step_size_func]
     type = ParsedFunction
     # expression = 'if(t < 170000, 10000, 100)'
-    expression = 'if(t < 170000, 100, 10)' # for figure generation
+    expression = 'if(t < 170000, 100, 60)' # for figure generation
   []
 []
 
