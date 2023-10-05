@@ -14,7 +14,8 @@ nb_exec = 5
 case_to_path = {
     "ver-1e": 'ver_1e/tmap8_ver1e.py',
     "val-2b": 'val_2b/val_2b.py',
-    "ver-1d-diffusion": 'ver_1d/tmap8_diffusion.py'
+    "ver-1d-diffusion": 'ver_1d/tmap8_diffusion.py',
+    "ver-1c": 'ver_1c/ver_1c.py'
 }
 
 case_to_time = {case: None for case in case_to_path}

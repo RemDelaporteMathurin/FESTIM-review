@@ -15,7 +15,8 @@ nb_exec = 5
 case_to_path = {
     "ver-1e": 'ver_1e/ver-1e.i',
     "val-2b": 'val_2b/val-2b.i',
-    "ver-1d-diffusion": 'ver_1d/ver-1d-diffusion.i'
+    "ver-1d-diffusion": 'ver_1d/ver-1d-diffusion.i',
+    "ver-1c": 'ver_1c/ver-1c.i'
 }
 
 case_to_time = {case: None for case in case_to_path}

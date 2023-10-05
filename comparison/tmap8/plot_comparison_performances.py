@@ -5,6 +5,7 @@ import numpy as np
 
 with open("comparison_results.json") as f:
     data = json.load(f)
+data = dict(sorted(data.items(), reverse=True))
 
 width = 0.4
 
