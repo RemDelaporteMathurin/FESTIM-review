@@ -44,7 +44,11 @@ my_model.settings = F.Settings(
 )
 
 derived_quantities = F.DerivedQuantities(
-    [PointValue(field="solute", x=l_pyc + 15.75e-6)], filename="./results.csv"
+    [
+        PointValue(field="solute", x=l_pyc + 15.75e-6),
+        PointValue(field="solute", x=20e-6),
+    ],
+    filename="./results.csv"
 )
 xdmf_exports = [F.XDMFExport("solute", checkpoint=False)] + [derived_quantities]
 
