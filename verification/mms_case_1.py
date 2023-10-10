@@ -1,6 +1,9 @@
 import festim as F
 import sympy as sp
 import fenics as f
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Create and mark the mesh
 
@@ -122,23 +125,19 @@ f.solve(form == 0, u, bcs=[])
 f.XDMFFile("exact_solution.xdmf").write_checkpoint(u, "exact_solution", 0, append=False)
 
 # plot exact solution and computed solution
-import matplotlib.pyplot as plt
-
-fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+fig, axs = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
 plt.sca(axs[0])
 plt.title('Exact solution')
+plt.xlabel('x')
+plt.ylabel('y')
 f.plot(u)
 plt.sca(axs[1])
+plt.xlabel('x')
 plt.title('Computed solution')
 CS = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
 
 plt.colorbar(CS, ax=axs, shrink=0.8)
-plt.show()
 
-
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-import numpy as np
 
 def compute_arc_length(xs, ys):
     """Computes the arc length of x,y points based
@@ -163,6 +162,8 @@ fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
 plt.sca(axs[0])
 f.plot(u)
+plt.xlabel('x')
+plt.ylabel('y')
 
 # plot the profiles on the right subplot
 for i, profile in enumerate(profiles):
@@ -186,8 +187,14 @@ for i, profile in enumerate(profiles):
     exact_line, = plt.plot(arc_length_exact, u_values, color=l.get_color(), marker='o', linestyle='None')
     computed_line, = plt.plot(arc_lengths, computed_values, color=l.get_color())
 
+plt.sca(axs[1])
+plt.xlabel('Arc length')
+plt.ylabel('Solution')
+
 legend_marker = mpl.lines.Line2D([], [], color='black', marker=exact_line.get_marker(), linestyle='None', label="Exact")
 legend_line = mpl.lines.Line2D([], [], color='black', label="Computed")
 plt.legend([legend_marker, legend_line], [legend_marker.get_label(), legend_line.get_label()])
 
+plt.grid(alpha=0.3)
+plt.gca().spines[["right", "top"]].set_visible(False)
 plt.show()
