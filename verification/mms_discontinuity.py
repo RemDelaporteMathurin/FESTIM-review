@@ -155,6 +155,9 @@ CS = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
 
 plt.colorbar(CS, ax=[axs[0], axs[1]], shrink=0.8)
 
+axs[0].sharey(axs[1])
+plt.setp(axs[1].get_yticklabels(), visible=False)
+
 
 def compute_arc_length(xs, ys):
     """Computes the arc length of x,y points based

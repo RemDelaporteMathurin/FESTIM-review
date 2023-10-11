@@ -168,6 +168,15 @@ for ax, row in zip([axs_top[0], axs_bot[0]], row_labels):
         va="center",
         weight="bold",
     )
+axs_top[0].set_ylabel("y")
+axs_bot[0].set_ylabel("y")
+axs_bot[0].set_xlabel("x")
+axs_bot[1].set_xlabel("x")
+
+axs_top[0].sharey(axs_top[1])
+plt.setp(axs_top[1].get_yticklabels(), visible=False)
+axs_bot[0].sharey(axs_bot[1])
+plt.setp(axs_bot[1].get_yticklabels(), visible=False)
 
 
 def compute_arc_length(xs, ys):
