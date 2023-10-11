@@ -219,4 +219,6 @@ plt.legend(
 
 plt.grid(alpha=0.3)
 plt.gca().spines[["right", "top"]].set_visible(False)
+for ext in ["png", "svg", "pdf"]:
+    plt.savefig(f"mms_discontinuity.{ext}")
 plt.show()

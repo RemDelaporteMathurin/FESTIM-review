@@ -169,6 +169,7 @@ for ax, row in zip([axs_top[0], axs_bot[0]], row_labels):
         weight="bold",
     )
 
+
 def compute_arc_length(xs, ys):
     """Computes the arc length of x,y points based
     on x and y arrays
@@ -177,6 +178,7 @@ def compute_arc_length(xs, ys):
     distance = np.linalg.norm(points[1:] - points[:-1], axis=1)
     arc_length = np.insert(np.cumsum(distance), 0, [0.0])
     return arc_length
+
 
 # define the profiles
 profiles = [
@@ -260,5 +262,5 @@ for ax, row in zip([axs_top[0], axs_bot[0]], row_labels):
     )
 
 for ext in ["png", "svg", "pdf"]:
-    plt.savefig(f"mms_trapping_profiles.{ext}")
+    plt.savefig(f"mms_trapping.{ext}")
 plt.show()
