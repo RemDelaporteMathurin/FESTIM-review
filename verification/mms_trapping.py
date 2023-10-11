@@ -108,25 +108,32 @@ exact_solution_trapped = f.project(exact_solution_trapped, V)
 # f.XDMFFile("exact_solution_trapped.xdmf").write_checkpoint(exact_solution_trapped, "exact_solution_trapped", 0, append=False)
 
 # plot exact solution and computed solution
-fig, (axs_top, axs_bot) = plt.subplots(2, 2, figsize=(10, 5), sharey=True, sharex=True)
+fig, (axs_top, axs_bot) = plt.subplots(2, 2, figsize=(10, 8), sharey=True, sharex=True)
 plt.sca(axs_top[0])
-plt.title('Exact solution')
-plt.ylabel('Mobile')
+plt.title('Exact solution', weight='bold')
 f.plot(exact_solution_mobile)
 plt.sca(axs_top[1])
-plt.title('Computed solution')
+plt.title('Computed solution', weight='bold')
 CS = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
 
-plt.colorbar(CS, ax=axs_top, shrink=0.8)
+plt.colorbar(CS, ax=axs_top, shrink=1)
 
 plt.sca(axs_bot[0])
-plt.ylabel('Trap 1')
 f.plot(exact_solution_trapped)
 plt.sca(axs_bot[1])
 CS = f.plot(my_trap.post_processing_solution)
 
-plt.colorbar(CS, ax=axs_bot, shrink=0.8)
+plt.colorbar(CS, ax=axs_bot, shrink=1)
 
+pad = 5 # in points
+row_labels = ["Mobile", "Trapped"]
+for ax, row in zip([axs_top[0], axs_bot[0]], row_labels):
+    ax.annotate(row, xy=(0, 0.5), xytext=(-ax.yaxis.labelpad - pad, 0),
+                xycoords=ax.yaxis.label, textcoords='offset points',
+                size='large', ha='right', va='center', weight='bold')
+
+for ext in ["png", "svg", "pdf"]:
+    plt.savefig(f"mms_trapping_comparison.{ext}")
 
 def compute_arc_length(xs, ys):
     """Computes the arc length of x,y points based
@@ -144,7 +151,7 @@ profiles = [
     {'start': (0.2, 0.6), 'end': (0.8, 0.8)}
 ]
 # create the figure and subplots
-fig, (axs_top, axs_bot) = plt.subplots(2, 2, figsize=(10, 10))
+fig, (axs_top, axs_bot) = plt.subplots(2, 2, figsize=(10, 8))
 
 # plot the exact solution and the profile lines on the left subplot
 for axs, exact, computed in zip([axs_top, axs_bot], [exact_solution_mobile, exact_solution_trapped], [my_model.h_transport_problem.mobile.post_processing_solution, my_trap.post_processing_solution]):
@@ -185,4 +192,14 @@ for axs, exact, computed in zip([axs_top, axs_bot], [exact_solution_mobile, exac
 
     plt.grid(alpha=0.3)
     plt.gca().spines[["right", "top"]].set_visible(False)
+
+pad = 5 # in points
+row_labels = ["Mobile", "Trapped"]
+for ax, row in zip([axs_top[0], axs_bot[0]], row_labels):
+    ax.annotate(row, xy=(0, 0.5), xytext=(-ax.yaxis.labelpad - pad, 0),
+                xycoords=ax.yaxis.label, textcoords='offset points',
+                size='large', ha='right', va='center', weight='bold')
+
+for ext in ["png", "svg", "pdf"]:
+    plt.savefig(f"mms_trapping_profiles.{ext}")
 plt.show()
