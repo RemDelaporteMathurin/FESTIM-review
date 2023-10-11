@@ -140,19 +140,23 @@ exact_solution_trapped = f.project(exact_solution_trapped, V)
 fig, (axs_top, axs_bot) = plt.subplots(2, 3, figsize=(15, 8), sharex="col")
 plt.sca(axs_top[0])
 plt.title("Exact solution", weight="bold")
-f.plot(exact_solution_mobile)
+CS1 = f.plot(exact_solution_mobile)
 plt.sca(axs_top[1])
 plt.title("Computed solution", weight="bold")
-CS = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
+CS2 = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
 
-plt.colorbar(CS, ax=[axs_top[0], axs_top[1]], shrink=1)
+plt.colorbar(CS2, ax=[axs_top[0], axs_top[1]], shrink=1)
 
 plt.sca(axs_bot[0])
-f.plot(exact_solution_trapped)
+CS3 = f.plot(exact_solution_trapped)
 plt.sca(axs_bot[1])
-CS = f.plot(my_trap.post_processing_solution)
+CS4 = f.plot(my_trap.post_processing_solution)
 
-plt.colorbar(CS, ax=[axs_bot[0], axs_bot[1]], shrink=1)
+plt.colorbar(CS4, ax=[axs_bot[0], axs_bot[1]], shrink=1)
+
+for CS in [CS1, CS2, CS3, CS4]:
+    for c in CS.collections:
+        c.set_edgecolor("face")
 
 pad = 5  # in points
 row_labels = ["Mobile", "Trapped"]

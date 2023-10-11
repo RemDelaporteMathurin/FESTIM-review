@@ -147,13 +147,17 @@ plt.sca(axs[0])
 plt.title("Exact solution")
 plt.xlabel("x")
 plt.ylabel("y")
-f.plot(u)
+CS1 = f.plot(u)
 plt.sca(axs[1])
 plt.xlabel("x")
 plt.title("Computed solution")
-CS = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
+CS2 = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
 
-plt.colorbar(CS, ax=[axs[0], axs[1]], shrink=0.8)
+for CS in [CS1, CS2]:
+    for c in CS.collections:
+        c.set_edgecolor("face")
+
+plt.colorbar(CS2, ax=[axs[0], axs[1]], shrink=0.8)
 
 axs[0].sharey(axs[1])
 plt.setp(axs[1].get_yticklabels(), visible=False)
