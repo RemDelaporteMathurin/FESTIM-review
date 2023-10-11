@@ -16,13 +16,16 @@ top_left_surface = f.CompiledSubDomain("near(x[1], 1.0) && x[0] < 0.5")
 bottom_right_surface = f.CompiledSubDomain("near(x[1], 0.0) && x[0] > 0.5")
 bottom_left_surface = f.CompiledSubDomain("near(x[1], 0.0) && x[0] < 0.5")
 
+
 class LeftSubdomain(f.SubDomain):
     def inside(self, x, on_boundary):
         return f.between(x[0], (0.0, 0.5))
 
+
 class RightSubdomain(f.SubDomain):
     def inside(self, x, on_boundary):
         return f.between(x[0], (0.5, 1.0))
+
 
 volume_markers = f.MeshFunction("size_t", fenics_mesh, fenics_mesh.topology().dim())
 volume_markers.set_all(0)
@@ -32,7 +35,9 @@ right_volume = RightSubdomain()
 left_volume.mark(volume_markers, 1)
 right_volume.mark(volume_markers, 2)
 
-surface_markers = f.MeshFunction("size_t", fenics_mesh, fenics_mesh.topology().dim() - 1)
+surface_markers = f.MeshFunction(
+    "size_t", fenics_mesh, fenics_mesh.topology().dim() - 1
+)
 surface_markers.set_all(0)
 left_surface.mark(surface_markers, 1)
 top_left_surface.mark(surface_markers, 2)
@@ -44,15 +49,20 @@ bottom_left_surface.mark(surface_markers, 6)
 # Create the FESTIM model
 my_model = F.Simulation()
 
-my_model.mesh = F.Mesh(fenics_mesh, volume_markers=volume_markers, surface_markers=surface_markers)
+my_model.mesh = F.Mesh(
+    fenics_mesh, volume_markers=volume_markers, surface_markers=surface_markers
+)
 
 # Variational formulation
 x = F.x
 y = F.y
 
-exact_solution = 1 + sp.sin(2*sp.pi*(x + 0.25)) + sp.cos(2*sp.pi*y) # exact solution
+exact_solution = (
+    1 + sp.sin(2 * sp.pi * (x + 0.25)) + sp.cos(2 * sp.pi * y)
+)  # exact solution
 
 lambda_left, lambda_right = 2, 5  # diffusion coeffs
+
 
 def grad(u):
     """Computes the gradient of a function u.
@@ -65,6 +75,7 @@ def grad(u):
     """
     return sp.Matrix([sp.diff(u, x), sp.diff(u, y)])
 
+
 def div(u):
     """Computes the divergence of a vector field u.
 
@@ -76,9 +87,10 @@ def div(u):
     """
     return sp.diff(u[0], x) + sp.diff(u[1], y)
 
+
 # source term left
-source_left = -div(lambda_left*grad(exact_solution))
-source_right = - div(lambda_right*grad(exact_solution))
+source_left = -div(lambda_left * grad(exact_solution))
+source_right = -div(lambda_right * grad(exact_solution))
 
 my_model.sources = [
     F.Source(source_left, volume=1, field="T"),
@@ -113,21 +125,23 @@ my_model.run()
 T_exact = f.Expression(sp.printing.ccode(exact_solution), degree=2)
 T_exact = f.project(T_exact, f.FunctionSpace(my_model.mesh.mesh, "CG", 1))
 
-f.XDMFFile("exact_solution.xdmf").write_checkpoint(T_exact, "exact_solution", 0, append=False)
+f.XDMFFile("exact_solution.xdmf").write_checkpoint(
+    T_exact, "exact_solution", 0, append=False
+)
 
 # plot exact solution and computed solution
-fig, axs = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
+fig, axs = plt.subplots(1, 3, figsize=(15, 5))
 plt.sca(axs[0])
-plt.title('Exact solution')
-plt.xlabel('x')
-plt.ylabel('y')
-f.plot(T_exact, cmap='inferno')
+plt.title("Exact solution")
+plt.xlabel("x")
+plt.ylabel("y")
+f.plot(T_exact, cmap="inferno")
 plt.sca(axs[1])
-plt.xlabel('x')
-plt.title('Computed solution')
-CS = f.plot(my_model.T.T, cmap='inferno')
+plt.xlabel("x")
+plt.title("Computed solution")
+CS = f.plot(my_model.T.T, cmap="inferno")
 
-plt.colorbar(CS, ax=axs, shrink=0.8)
+plt.colorbar(CS, ax=[axs[0], axs[1]], shrink=0.8)
 
 
 def compute_arc_length(xs, ys):
@@ -139,31 +153,22 @@ def compute_arc_length(xs, ys):
     arc_length = np.insert(np.cumsum(distance), 0, [0.0])
     return arc_length
 
+
 # define the profiles
 profiles = [
-    {'start': (0.0, 0.0), 'end': (1.0, 1.0)},
-    {'start': (0.2, 0.8), 'end': (0.7, 0.2)},
-    {'start': (0.2, 0.6), 'end': (0.8, 0.8)}
+    {"start": (0.0, 0.0), "end": (1.0, 1.0)},
+    {"start": (0.2, 0.8), "end": (0.7, 0.2)},
+    {"start": (0.2, 0.6), "end": (0.8, 0.8)},
 ]
-
-# create the figure and subplots
-fig, axs = plt.subplots(1, 2, figsize=(10, 5))
-
-# plot the exact solution and the profile lines on the left subplot
-
-plt.sca(axs[0])
-f.plot(T_exact, cmap='inferno')
-plt.xlabel('x')
-plt.ylabel('y')
 
 # plot the profiles on the right subplot
 for i, profile in enumerate(profiles):
-    start_x, start_y = profile['start']
-    end_x, end_y = profile['end']
-    plt.sca(axs[0])
-    l, = plt.plot([start_x, end_x], [start_y, end_y])
-
+    start_x, start_y = profile["start"]
+    end_x, end_y = profile["end"]
     plt.sca(axs[1])
+    (l,) = plt.plot([start_x, end_x], [start_y, end_y])
+
+    plt.sca(axs[2])
 
     points_x_exact = np.linspace(start_x, end_x, num=30)
     points_y_exact = np.linspace(start_y, end_y, num=30)
@@ -175,16 +180,27 @@ for i, profile in enumerate(profiles):
     arc_lengths = compute_arc_length(points_x, points_y)
     computed_values = [my_model.T.T(x, y) for x, y in zip(points_x, points_y)]
 
-    exact_line, = plt.plot(arc_length_exact, u_values, color=l.get_color(), marker='o', linestyle='None')
-    computed_line, = plt.plot(arc_lengths, computed_values, color=l.get_color())
+    (exact_line,) = plt.plot(
+        arc_length_exact, u_values, color=l.get_color(), marker="o", linestyle="None"
+    )
+    (computed_line,) = plt.plot(arc_lengths, computed_values, color=l.get_color())
 
-plt.sca(axs[1])
-plt.xlabel('Arc length')
-plt.ylabel('Solution')
+plt.sca(axs[2])
+plt.xlabel("Arc length")
+plt.ylabel("Solution")
 
-legend_marker = mpl.lines.Line2D([], [], color='black', marker=exact_line.get_marker(), linestyle='None', label="Exact")
-legend_line = mpl.lines.Line2D([], [], color='black', label="Computed")
-plt.legend([legend_marker, legend_line], [legend_marker.get_label(), legend_line.get_label()])
+legend_marker = mpl.lines.Line2D(
+    [],
+    [],
+    color="black",
+    marker=exact_line.get_marker(),
+    linestyle="None",
+    label="Exact",
+)
+legend_line = mpl.lines.Line2D([], [], color="black", label="Computed")
+plt.legend(
+    [legend_marker, legend_line], [legend_marker.get_label(), legend_line.get_label()]
+)
 
 plt.grid(alpha=0.3)
 plt.gca().spines[["right", "top"]].set_visible(False)
