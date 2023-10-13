@@ -136,6 +136,32 @@ exact_solution_trapped = f.project(exact_solution_trapped, V)
 # f.XDMFFile("exact_solution_mobile.xdmf").write_checkpoint(exact_solution_mobile, "exact_solution_mobile", 0, append=False)
 # f.XDMFFile("exact_solution_trapped.xdmf").write_checkpoint(exact_solution_trapped, "exact_solution_trapped", 0, append=False)
 
+# plot the trapping and detrapping rates and source
+
+fig, axs = plt.subplots(1, 3, figsize=(15, 5))
+k = my_trap.k_0 * f.exp(-my_trap.E_k / (F.k_B * my_model.T.value))
+density = f.project(f.Expression(sp.printing.ccode(density), degree=2), V)
+trapping_rate = k * exact_solution_mobile * (density - exact_solution_trapped)
+p = my_trap.p_0 * f.exp(-my_trap.E_p / (F.k_B * my_model.T.value))
+detrapping_rate = p * exact_solution_trapped
+detrapping_rate = f.project(detrapping_rate, V)
+trapping_rate = f.project(trapping_rate, V)
+f_trap = f.project(f.Expression(sp.printing.ccode(f_trap), degree=2), V)
+
+plt.sca(axs[0])
+CS = f.plot(trapping_rate)
+plt.title("Trapping rate")
+plt.colorbar(CS)
+plt.sca(axs[1])
+CS = f.plot(detrapping_rate)
+plt.title("Detrapping rate")
+plt.colorbar(CS)
+plt.sca(axs[2])
+CS = f.plot(f_trap)
+plt.title("MMS source")
+plt.colorbar(CS)
+plt.show()
+
 # plot exact solution and computed solution
 fig, (axs_top, axs_bot) = plt.subplots(2, 3, figsize=(15, 8), sharex="col")
 plt.sca(axs_top[0])
