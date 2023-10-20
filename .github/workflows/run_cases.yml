@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: remdelaportemathurin/festim/setup_env@beta
+    - uses: remdelaportemathurin/festim/setup_env
 
     - name: Run Python scripts
       shell: bash -l {0}
