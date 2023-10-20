@@ -3,13 +3,23 @@ name: Run FESTIM scripts
 on: pull_request
 
 jobs:
-  build:
-    uses: ./.github/workflows/setup_env.yml
 
-  run:
+  run-comparison-with-tmap:
     runs-on: ubuntu-latest
-    needs: build
     steps:
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: myenv
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+
+    - name: Install requirements
+      shell: bash -l {0}
+      run: |
+        mamba install -c conda-forge fenics
+        pip install festim
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -18,3 +28,72 @@ jobs:
       run: |
         cd comparison/tmap8
         python runner_festim.py
+
+  run-gallery-tds:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: myenv
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+
+    - name: Install requirements
+      shell: bash -l {0}
+      run: |
+        mamba install -c conda-forge fenics
+        pip install festim
+  
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - run: cd gallery/tds
+
+    - name: Run TDS Baldwin
+      shell: bash -l {0}
+      run: |
+        python tds_baldwin.py
+
+    - name: Run TDS Baldwin
+      shell: bash -l {0}
+      run: |
+        python tds_ogorodnikova.py
+
+  run-verification:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: myenv
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+
+    - name: Install requirements
+      shell: bash -l {0}
+      run: |
+        mamba install -c conda-forge fenics
+        pip install festim
+  
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - run: cd verification
+
+    - name: Run MMS discontinuity
+      shell: bash -l {0}
+      run: |
+        python mms_discontinuity.py
+
+    - name: Run MMS heat transfer
+      shell: bash -l {0}
+      run: |
+        python mms_heat_transfer.py
+
+    - name: Run MMS trapping
+      shell: bash -l {0}
+      run: |
+        python mms_trapping.py
