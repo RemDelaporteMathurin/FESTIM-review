@@ -3,10 +3,13 @@ name: Run FESTIM scripts
 on: pull_request
 
 jobs:
-  run:
+  build:
     runs-on: ubuntu-latest
     uses: ./.github/workflows/setup_env.yml
 
+  run:
+    runs-on: ubuntu-latest
+    needs: job1
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
