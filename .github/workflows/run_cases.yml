@@ -25,6 +25,7 @@ jobs:
         pip install festim
 
     - name: Run Python scripts
+      shell: bash -l {0}
       run: |
         cd comparison/tmap8
         python runner_festim.py
