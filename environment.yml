@@ -1,0 +1,9 @@
+name: festim-review-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - fenics
+  - matplotlib
+  - pip:
+    - festim

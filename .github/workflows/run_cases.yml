@@ -17,12 +17,7 @@ jobs:
         miniforge-version: latest
         use-mamba: true
         channels: conda-forge
-
-    - name: Install requirements
-      shell: bash -l {0}
-      run: |
-        mamba install -c conda-forge fenics
-        pip install -r requirements.txt
+        environment-file: environment.yml
 
     - name: Run Python scripts
       working-directory: ./comparison/tmap8
@@ -43,12 +38,7 @@ jobs:
         miniforge-version: latest
         use-mamba: true
         channels: conda-forge
-
-    - name: Install requirements
-      shell: bash -l {0}
-      run: |
-        mamba install -c conda-forge fenics
-        pip install -r requirements.txt
+        environment-file: environment.yml
 
     - name: Run TDS Baldwin
       shell: bash -l {0}
@@ -75,12 +65,7 @@ jobs:
         miniforge-version: latest
         use-mamba: true
         channels: conda-forge
-
-    - name: Install requirements
-      shell: bash -l {0}
-      run: |
-        mamba install -c conda-forge fenics
-        pip install -r requirements.txt
+        environment-file: environment.yml
 
     - name: Run MMS discontinuity
       working-directory: ./verification
