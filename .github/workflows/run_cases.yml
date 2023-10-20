@@ -1,10 +1,9 @@
 name: Run FESTIM scripts
 
 on:
-  push:
+  - push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  - pull_request
 
 jobs:
   run:
