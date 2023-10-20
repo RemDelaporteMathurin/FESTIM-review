@@ -24,9 +24,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Run Python scripts
+      working-directory: ./comparison/tmap8
       shell: bash -l {0}
       run: |
-        cd comparison/tmap8
         python runner_festim.py
 
   run-gallery-tds:
@@ -49,15 +49,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - run: cd gallery/tds
-
     - name: Run TDS Baldwin
       shell: bash -l {0}
+      working-directory: ./gallery/tds
       run: |
         python tds_baldwin.py
 
     - name: Run TDS Baldwin
       shell: bash -l {0}
+      working-directory: ./gallery/tds
       run: |
         python tds_ogorodnikova.py
 
@@ -81,19 +81,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - run: cd verification
-
     - name: Run MMS discontinuity
+      working-directory: ./verification
       shell: bash -l {0}
       run: |
         python mms_discontinuity.py
 
     - name: Run MMS heat transfer
+      working-directory: ./verification
       shell: bash -l {0}
       run: |
         python mms_heat_transfer.py
 
     - name: Run MMS trapping
+      working-directory: ./verification
       shell: bash -l {0}
       run: |
         python mms_trapping.py
