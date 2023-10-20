@@ -1,6 +1,6 @@
 import festim as F
+import numpy as np
 
-import properties
 
 id_W = 6  # volume W
 id_Cu = 7  # volume Cu
@@ -22,14 +22,44 @@ my_model.mesh = F.MeshFromXDMF(
 )
 
 # Materials
+
+
+def polynomial(coeffs, x, main):
+    val = coeffs[0]
+    for i in range(1, 4):
+        if main:
+            val += coeffs[i] * np.float_power(x, i)
+        else:
+            val += coeffs[i] * x**i
+    return val
+
+
+def thermal_cond_W(T, main=False):
+    coeffs = [1.75214e2, -1.07335e-1, 5.03006e-5, -7.84154e-9]
+    return polynomial(coeffs, T, main=main)
+
+
+def thermal_cond_Cu(T, main=False):
+    coeffs = [4.02301e02, -7.88669e-02, 3.76147e-05, -3.93153e-08]
+    return polynomial(coeffs, T, main=main)
+
+
+def thermal_cond_CuCrZr(T, main=False):
+    coeffs = [3.12969e2, 2.57678e-01, -6.45110e-4, 5.25780e-7]
+    return polynomial(coeffs, T, main=main)
+
+
+atom_density_W = 6.3222e28  # atomic density m^-3
+atom_density_Cu = 8.4912e28  # atomic density m^-3
+atom_density_CuCrZr = 2.6096e28  # atomic density m^-3
+
 tungsten = F.Material(
     id=id_W,
     D_0=4.1e-7,
     E_D=0.39,
     S_0=1.87e24,
     E_S=1.04,
-    thermal_cond=properties.thermal_cond_W,
-    heat_capacity=properties.rhoCp_W,
+    thermal_cond=thermal_cond_W,
     rho=1,
 )
 
@@ -39,8 +69,7 @@ copper = F.Material(
     E_D=0.387,
     S_0=3.14e24,
     E_S=0.572,
-    thermal_cond=properties.thermal_cond_Cu,
-    heat_capacity=properties.rhoCp_Cu,
+    thermal_cond=thermal_cond_Cu,
     rho=1,
 )
 
@@ -50,8 +79,7 @@ cucrzr = F.Material(
     E_D=0.418,
     S_0=4.28e23,
     E_S=0.387,
-    thermal_cond=properties.thermal_cond_CuCrZr,
-    heat_capacity=properties.rhoCp_CuCrZr,
+    thermal_cond=thermal_cond_CuCrZr,
     rho=1,
 )
 
@@ -65,7 +93,7 @@ my_model.traps = F.Traps(
             E_k=tungsten.E_D,
             p_0=1e13,
             E_p=0.87,
-            density=1.3e-3 * properties.atom_density_W,
+            density=1.3e-3 * atom_density_W,
             materials=tungsten,
         ),
         F.Trap(
@@ -74,9 +102,9 @@ my_model.traps = F.Traps(
             p_0=[1e13, 8e13, 8e13],
             E_p=[1.0, 0.5, 0.85],
             density=[
-                4e-4 * properties.atom_density_W,
-                5e-5 * properties.atom_density_Cu,
-                5e-5 * properties.atom_density_CuCrZr,
+                4e-4 * atom_density_W,
+                5e-5 * atom_density_Cu,
+                5e-5 * atom_density_CuCrZr,
             ],
             materials=[tungsten, copper, cucrzr],
         ),
