@@ -5,12 +5,11 @@ on: pull_request
 jobs:
   run:
     runs-on: ubuntu-latest
+    uses: ./.github/workflows/setup_env.yml
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - uses: ./.github/workflows/setup_env.yml
 
     - name: Run Python scripts
       shell: bash -l {0}
