@@ -4,7 +4,6 @@ on: pull_request
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/setup_env.yml
 
   run:
