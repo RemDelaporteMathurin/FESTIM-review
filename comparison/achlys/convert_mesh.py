@@ -2,18 +2,19 @@ import meshio
 
 mesh = meshio.read("mesh_3D_6mm.med")
 
-# WRITE TO GMSH FORMAT
+# ----------------------------- Convert to GMSH .msh ----------------------------- #
 
-cell_data = {"gmsh:geometrical": [
-    -1 * mesh.cell_data_dict["cell_tags"]['line'],
-    -1 * mesh.cell_data_dict["cell_tags"]['tetra'],
-    -1 * mesh.cell_data_dict["cell_tags"]['triangle']
+cell_data = {
+    "gmsh:geometrical": [
+        -1 * mesh.cell_data_dict["cell_tags"]["line"],
+        -1 * mesh.cell_data_dict["cell_tags"]["tetra"],
+        -1 * mesh.cell_data_dict["cell_tags"]["triangle"],
     ],
     "gmsh:physical": [
-    -1 * mesh.cell_data_dict["cell_tags"]['line'],
-    -1 * mesh.cell_data_dict["cell_tags"]['tetra'],
-    -1 * mesh.cell_data_dict["cell_tags"]['triangle']
-    ]
+        -1 * mesh.cell_data_dict["cell_tags"]["line"],
+        -1 * mesh.cell_data_dict["cell_tags"]["tetra"],
+        -1 * mesh.cell_data_dict["cell_tags"]["triangle"],
+    ],
 }
 
 meshio.write_points_cells(
@@ -21,13 +22,15 @@ meshio.write_points_cells(
     mesh.points,
     mesh.cells,
     cell_data=cell_data,
-    file_format='gmsh22',
-    binary=False
+    file_format="gmsh22",
+    binary=False,
 )
 
 
-# write to nasran
+# --------------------------- Convert to NASTRAN (.nas) --------------------------- #
+
 import numpy as np
+
 
 # monkey patching the function _float_to_nastran_string until PR nschloe/meshio/pull/1437 is merged
 def new_float_to_nastran_string(value, length=16):
@@ -52,12 +55,11 @@ def new_float_to_nastran_string(value, length=16):
         -0.1234 --> "-1.234E-1"
         3.1415926535897932 --> "3.14159265359E+0"
     """
-    out = np.format_float_scientific(value, exp_digits=1, precision=9).replace(
-        "e", "E"
-    )
+    out = np.format_float_scientific(value, exp_digits=1, precision=9).replace("e", "E")
 
     assert len(out) <= 16
     return out
+
 
 meshio.nastran._nastran._float_to_nastran_string = new_float_to_nastran_string
 
@@ -68,7 +70,7 @@ meshio.write_points_cells(
 )
 
 
-# WRITE TO XDMF FORMAT
+# ---------------------------- Convert to XDMF (.xdmf) ---------------------------- #
 
 cell_data_types = mesh.cell_data_dict["cell_tags"].keys()
 
