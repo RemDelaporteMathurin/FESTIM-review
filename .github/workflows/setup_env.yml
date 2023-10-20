@@ -1,0 +1,24 @@
+name: "Setup FESTIM env"
+description: "Prepares a Conda environment with FEniCS and FESTIM."
+
+runs:
+  using: "composite"
+  runs-on: ubuntu-latest
+
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v2
+
+  - name: Set up Conda
+    uses: conda-incubator/setup-miniconda@v2
+    with:
+      activate-environment: myenv
+      miniforge-version: latest
+      use-mamba: true
+      channels: conda-forge
+
+  - name: Install requirements
+    shell: bash -l {0}
+    run: |
+      mamba install -c conda-forge fenics
+      pip install festim
