@@ -4,6 +4,6 @@ channels:
   - defaults
 dependencies:
   - fenics
-  - matplotlib
+  - matplotlib==3.8
   - pip:
     - festim
