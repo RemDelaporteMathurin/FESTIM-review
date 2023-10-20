@@ -215,17 +215,17 @@ def plot_experiment():
 
 if __name__ == "__main__":
     derived_quantities = run_tds("Recombination flux")
-    # plot_tds(derived_quantities, trap_contribution=True)
-    # plot_experiment()
-    # plt.xlim(left=resting_time)
-    # plt.ylim(bottom=0)
-    # plt.grid(alpha=0.3)
-    # plt.ylabel(r"Desorption flux (m$^{-2}$ s$^{-1}$)")
-    # plt.xlabel(r"Time (s)")
-    # plt.gca().spines[["right", "top"]].set_visible(False)
-    # plt.legend()
-    # for ext in ["png", "svg", "pdf"]:
-    #     plt.savefig(f"tds_baldwin.{ext}")
+    plot_tds(derived_quantities, trap_contribution=True)
+    plot_experiment()
+    plt.xlim(left=resting_time)
+    plt.ylim(bottom=0)
+    plt.grid(alpha=0.3)
+    plt.ylabel(r"Desorption flux (m$^{-2}$ s$^{-1}$)")
+    plt.xlabel(r"Time (s)")
+    plt.gca().spines[["right", "top"]].set_visible(False)
+    plt.legend()
+    for ext in ["png", "svg", "pdf"]:
+        plt.savefig(f"tds_baldwin.{ext}")
 
     # # comparison models
     # plt.figure()
