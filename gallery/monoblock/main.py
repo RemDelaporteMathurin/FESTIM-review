@@ -1,6 +1,7 @@
 import festim as F
 import numpy as np
 
+my_model = F.Simulation()
 
 id_W = 6  # volume W
 id_Cu = 7  # volume Cu
@@ -13,15 +14,15 @@ id_toroidal_gap = 13
 id_bottom = 14
 id_top_pipe = 15
 
-my_model = F.Simulation()
 
-# Mesh
+# ----------------------------- Mesh ----------------------------- #
+
 my_model.mesh = F.MeshFromXDMF(
     volume_file="mesh/mesh_cells.xdmf",
     boundary_file="mesh/mesh_facets.xdmf",
 )
 
-# Materials
+# ----------------------------- Materials ----------------------------- #
 
 
 def polynomial(coeffs, x, main):
@@ -85,7 +86,9 @@ cucrzr = F.Material(
 
 my_model.materials = F.Materials([tungsten, copper, cucrzr])
 
-# traps
+
+# ----------------------------- Traps ----------------------------- #
+
 my_model.traps = F.Traps(
     [
         F.Trap(
@@ -111,11 +114,13 @@ my_model.traps = F.Traps(
     ]
 )
 
-# temperature
+# ----------------------------- Temperature ----------------------------- #
+
 my_model.T = F.HeatTransferProblem(transient=False)
 
 
-# boundary conditions
+# ------------------------- Boundary conditions ------------------------- #
+
 heat_flux_top = F.FluxBC(surfaces=id_W_top, value=10e6, field="T")
 convective_heat_flux_coolant = F.ConvectiveFlux(
     h_coeff=7e04, T_ext=323, surfaces=id_coolant
@@ -179,6 +184,9 @@ h_transport_bcs = [
 
 my_model.boundary_conditions = heat_transfer_bcs + h_transport_bcs
 
+# ------------------------- Settings ------------------------- #
+
+
 my_model.settings = F.Settings(
     absolute_tolerance=1e4,
     relative_tolerance=1e-5,
@@ -191,6 +199,8 @@ my_model.settings = F.Settings(
 )
 
 my_model.dt = F.Stepsize(initial_value=1e5, stepsize_change_ratio=1.1)
+
+# ------------------------- Exports ------------------------- #
 
 derived_quantities = F.DerivedQuantities(
     [
