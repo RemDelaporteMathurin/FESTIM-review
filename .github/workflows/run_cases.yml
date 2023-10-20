@@ -25,6 +25,12 @@ jobs:
       run: |
         python runner_festim.py
 
+    - name: Run plotting script
+      working-directory: ./comparison/tmap8
+      shell: bash -l {0}
+      run: |
+        python plot_comparison_performances.py
+
   run-gallery-tds:
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +52,7 @@ jobs:
       run: |
         python tds_baldwin.py
 
-    - name: Run TDS Baldwin
+    - name: Run TDS Ogorodnikova
       shell: bash -l {0}
       working-directory: ./gallery/tds
       run: |
