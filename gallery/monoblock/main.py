@@ -56,22 +56,20 @@ atom_density_CuCrZr = 2.6096e28  # atomic density m^-3
 
 tungsten = F.Material(
     id=id_W,
-    D_0=4.1e-7,
-    E_D=0.39,
-    S_0=1.87e24,
+    D_0=4.10e-7,
+    E_D=0.390,
+    S_0=1.870e24,
     E_S=1.04,
     thermal_cond=thermal_cond_W,
-    rho=1,
 )
 
 copper = F.Material(
     id=id_Cu,
-    D_0=6.6e-7,
+    D_0=6.60e-7,
     E_D=0.387,
     S_0=3.14e24,
     E_S=0.572,
     thermal_cond=thermal_cond_Cu,
-    rho=1,
 )
 
 cucrzr = F.Material(
@@ -81,7 +79,6 @@ cucrzr = F.Material(
     S_0=4.28e23,
     E_S=0.387,
     thermal_cond=thermal_cond_CuCrZr,
-    rho=1,
 )
 
 my_model.materials = F.Materials([tungsten, copper, cucrzr])
@@ -168,7 +165,7 @@ instantaneous_recombination_coolant = F.DirichletBC(
 # )
 
 h_implantation_top = F.ImplantationDirichlet(
-    surfaces=id_W_top, phi=1.61e22, R_p=9.52e-10, D_0=4.1e-7, E_D=0.39
+    surfaces=id_W_top, phi=1.60e22, R_p=1e-9, D_0=tungsten.D_0, E_D=tungsten.E_D
 )
 
 h_transport_bcs = [
