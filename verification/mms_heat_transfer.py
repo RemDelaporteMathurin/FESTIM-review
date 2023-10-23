@@ -147,8 +147,7 @@ axs[0].sharey(axs[1])
 plt.setp(axs[1].get_yticklabels(), visible=False)
 
 for CS in [CS1, CS2]:
-    for c in CS.collections:
-        c.set_edgecolor("face")
+    CS.set_edgecolor("face")
 
 
 def compute_arc_length(xs, ys):

@@ -181,8 +181,7 @@ CS4 = f.plot(my_trap.post_processing_solution)
 plt.colorbar(CS4, ax=[axs_bot[0], axs_bot[1]], shrink=1)
 
 for CS in [CS1, CS2, CS3, CS4]:
-    for c in CS.collections:
-        c.set_edgecolor("face")
+    CS.set_edgecolor("face")
 
 pad = 5  # in points
 row_labels = ["Mobile", "Trapped"]

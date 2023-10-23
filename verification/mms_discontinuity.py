@@ -154,8 +154,7 @@ plt.title("Computed solution")
 CS2 = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
 
 for CS in [CS1, CS2]:
-    for c in CS.collections:
-        c.set_edgecolor("face")
+    CS.set_edgecolor("face")
 
 plt.colorbar(CS2, ax=[axs[0], axs[1]], shrink=0.8)
 
