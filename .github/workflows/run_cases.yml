@@ -1,0 +1,120 @@
+name: Run FESTIM scripts
+
+on: pull_request
+
+jobs:
+
+  run-comparison-with-tmap:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: myenv
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+        environment-file: environment.yml
+
+    - name:  val-2b
+      working-directory: ./comparison/tmap8/val_2b
+      shell: bash -l {0}
+      run: |
+        python val_2b.py
+        python plot.py
+
+    - name:  ver-1c
+      working-directory: ./comparison/tmap8/ver_1c
+      shell: bash -l {0}
+      run: |
+        python ver_1c.py
+        python plot.py
+
+    - name:  ver-1d
+      working-directory: ./comparison/tmap8/ver_1d
+      shell: bash -l {0}
+      run: |
+        python tmap8_diffusion.py
+        python plot_flux.py
+
+    - name:  ver-1e
+      working-directory: ./comparison/tmap8/ver_1e
+      shell: bash -l {0}
+      run: |
+        python tmap8_ver1e.py
+        python plot.py
+
+    - name: Run all scripts
+      working-directory: ./comparison/tmap8
+      shell: bash -l {0}
+      run: |
+        python runner_festim.py
+
+    - name: Run plotting script
+      working-directory: ./comparison/tmap8
+      shell: bash -l {0}
+      run: |
+        python plot_comparison_performances.py
+
+  run-gallery-tds:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: myenv
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+        environment-file: environment.yml
+
+    - name: Run TDS Baldwin
+      shell: bash -l {0}
+      working-directory: ./gallery/tds
+      run: |
+        python tds_baldwin.py
+
+    - name: Run TDS Ogorodnikova
+      shell: bash -l {0}
+      working-directory: ./gallery/tds
+      run: |
+        python tds_ogorodnikova.py
+
+  run-verification:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: myenv
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+        environment-file: environment.yml
+
+    - name: Run MMS discontinuity
+      working-directory: ./verification
+      shell: bash -l {0}
+      run: |
+        python mms_discontinuity.py
+
+    - name: Run MMS heat transfer
+      working-directory: ./verification
+      shell: bash -l {0}
+      run: |
+        python mms_heat_transfer.py
+
+    - name: Run MMS trapping
+      working-directory: ./verification
+      shell: bash -l {0}
+      run: |
+        python mms_trapping.py

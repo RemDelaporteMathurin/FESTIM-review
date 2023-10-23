@@ -1,0 +1,10 @@
+name: festim-review-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - fenics
+  - matplotlib
+  - numpy<1.25
+  - pip:
+    - git+https://github.com/remdelaportemathurin/festim@main
