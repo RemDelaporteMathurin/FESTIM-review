@@ -195,7 +195,7 @@ my_model.settings = F.Settings(
     chemical_pot=True,
     transient=True,
     final_time=1e6,
-    linear_solver="mumps",
+    linear_solver="mumps",  # 367s  #without 720s
 )
 
 my_model.dt = F.Stepsize(initial_value=1e5, stepsize_change_ratio=1.1)
