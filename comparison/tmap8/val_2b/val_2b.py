@@ -37,7 +37,7 @@ vertices = np.concatenate(
         np.arange(*beo.borders, step=0.5e-9),
         [beo.borders[-1]],
         np.arange(*be.borders, step=0.5e-5),
-        [be.borders[-1]]
+        [be.borders[-1]],
     ]
 )
 
@@ -47,7 +47,7 @@ time_charging = 180000
 time_cool_down = 2400
 time_start_tds = time_charging + time_cool_down
 temperature_ramp = 0.05
-tds_duration = (1073 - 300)/(temperature_ramp)
+tds_duration = (1073 - 300) / (temperature_ramp)
 
 
 enclosure_pressure = sp.Piecewise(
@@ -65,7 +65,8 @@ model_charging.T = F.Temperature(
     sp.Piecewise(
         (loading_temperature, F.t < time_charging),
         (
-            loading_temperature - ((1 - sp.exp(-(F.t - time_charging) / cooling_time_constant)) * 475),
+            loading_temperature
+            - ((1 - sp.exp(-(F.t - time_charging) / cooling_time_constant)) * 475),
             F.t <= time_start_tds,
         ),
         (300 + temperature_ramp * (F.t - time_start_tds), True),
@@ -79,17 +80,26 @@ model_charging.settings = F.Settings(
     chemical_pot=True,
 )
 
-model_charging.dt = F.Stepsize(initial_value=10, stepsize_change_ratio=1.1, t_stop=time_charging, stepsize_stop_max=60)
+model_charging.dt = F.Stepsize(
+    initial_value=10,
+    stepsize_change_ratio=1.1,
+    t_stop=time_charging,
+    stepsize_stop_max=60,
+    milestones=[time_charging],
+)
 
 model_charging.exports = [
-    F.XDMFExport("solute", filename="mobile_concentration_checkpoint.xdmf", checkpoint=True, mode="last"),
-    F.TXTExport(field="solute", label="solute", folder="results", times=[time_charging]),
+    F.XDMFExport(
+        "solute",
+        filename="mobile_concentration_checkpoint.xdmf",
+        checkpoint=True,
+        mode="last",
+    )
 ]
 
 # model_charging.log_level = 20
 model_charging.initialise()
 model_charging.run()
-
 
 
 model_desorb = F.Simulation()
@@ -109,7 +119,14 @@ model_desorb.dt = model_charging.dt
 
 model_desorb.T = model_charging.T
 
-model_desorb.initial_conditions = [F.InitialCondition(field=0, value="mobile_concentration_checkpoint.xdmf", label="mobile_concentration", time_step=-1)]
+model_desorb.initial_conditions = [
+    F.InitialCondition(
+        field=0,
+        value="mobile_concentration_checkpoint.xdmf",
+        label="mobile_concentration",
+        time_step=-1,
+    )
+]
 
 derived_quantities = F.DerivedQuantities(
     [
@@ -117,7 +134,7 @@ derived_quantities = F.DerivedQuantities(
         F.AverageVolume("T", volume=1),
         F.AverageVolume("T", volume=2),
     ],
-    filename="results/derived_quantities.csv"
+    filename="results/derived_quantities.csv",
 )
 
 model_desorb.exports = [
