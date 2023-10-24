@@ -107,7 +107,7 @@ run-gallery-monoblock:
       run: |
         python main.py
 
-  run-verification:
+run-verification:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
