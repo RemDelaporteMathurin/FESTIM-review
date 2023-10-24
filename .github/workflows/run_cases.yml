@@ -92,10 +92,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Conda
+    - name: Set up FESTIM Conda env
       uses: conda-incubator/setup-miniconda@v2
       with:
-        activate-environment: myenv
+        activate-environment: festim
         miniforge-version: latest
         use-mamba: true
         channels: conda-forge
@@ -106,6 +106,23 @@ jobs:
       working-directory: ./gallery/monoblock
       run: |
         python main.py
+
+    - name: Set up Paraview Conda env
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: paraview
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+
+    - name: Install paraview
+      shell: bash -l {0}
+      run: mamba install -c conda-forge paraview
+    
+    - name: Run paraview
+      shell: bash -l {0}
+      working-directory: ./gallery/monoblock
+      run: python visualisation.py
 
   run-verification:
     runs-on: ubuntu-latest
