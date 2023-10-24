@@ -18,103 +18,107 @@ paraview.simple._DisableFirstRenderCameraReset()
 materialLibrary1 = GetMaterialLibrary()
 
 # Create a new 'Render View'
-renderView1 = CreateView("RenderView")
-renderView1.ViewSize = [1920, 1440]
-renderView1.InteractionMode = "2D"
-renderView1.AxesGrid = "GridAxes3DActor"
-renderView1.OrientationAxesVisibility = 0
-renderView1.CenterOfRotation = [
+toroidal_view = CreateView("RenderView")
+toroidal_view.ViewSize = [1920, 1440]
+toroidal_view.InteractionMode = "2D"
+toroidal_view.AxesGrid = "GridAxes3DActor"
+toroidal_view.OrientationAxesVisibility = 0
+toroidal_view.CenterOfRotation = [
     -9.999999717180685e-10,
     0.009902089601382613,
     0.0012499999720603228,
 ]
-renderView1.UseLight = 0
-renderView1.StereoType = "Crystal Eyes"
-renderView1.CameraPosition = [
+toroidal_view.UseLight = 0
+toroidal_view.StereoType = "Crystal Eyes"
+toroidal_view.CameraPosition = [
     0.013740840533351903,
     0.009678529307796436,
     -0.00048013618639282716,
 ]
-renderView1.CameraFocalPoint = [
+toroidal_view.CameraFocalPoint = [
     -9.999999717180685e-10,
     0.009678529307796436,
     -0.00048013618639282716,
 ]
-renderView1.CameraFocalDisk = 1.0
-renderView1.CameraParallelScale = 0.005206912772554821
-renderView1.BackEnd = "OSPRay raycaster"
-renderView1.OSPRayMaterialLibrary = materialLibrary1
+toroidal_view.CameraFocalDisk = 1.0
+toroidal_view.CameraParallelScale = 0.005206912772554821
+toroidal_view.BackEnd = "OSPRay raycaster"
+toroidal_view.OSPRayMaterialLibrary = materialLibrary1
 
 # Create a new 'Render View'
-renderView2 = CreateView("RenderView")
-renderView2.ViewSize = [2892, 1545]
-renderView2.InteractionMode = "2D"
-renderView2.AxesGrid = "GridAxes3DActor"
-renderView2.OrientationAxesVisibility = 0
-renderView2.CenterOfRotation = [0.0, 0.0010000001639127731, 9.999999717180685e-10]
-renderView2.UseLight = 0
-renderView2.StereoType = "Crystal Eyes"
-renderView2.CameraPosition = [0.0, 0.0010000001639127731, 0.06562611401245706]
-renderView2.CameraFocalPoint = [0.0, 0.0010000001639127731, 9.999999717180685e-10]
-renderView2.CameraFocalDisk = 1.0
-renderView2.CameraParallelScale = 0.016985287903674255
-renderView2.BackEnd = "OSPRay raycaster"
-renderView2.OSPRayMaterialLibrary = materialLibrary1
+poloidal_view = CreateView("RenderView")
+poloidal_view.ViewSize = [2892, 1545]
+poloidal_view.InteractionMode = "2D"
+poloidal_view.AxesGrid = "GridAxes3DActor"
+poloidal_view.OrientationAxesVisibility = 0
+poloidal_view.CenterOfRotation = [0.0, 0.0010000001639127731, 9.999999717180685e-10]
+poloidal_view.UseLight = 0
+poloidal_view.StereoType = "Crystal Eyes"
+poloidal_view.CameraPosition = [0.0, 0.0010000001639127731, 0.06562611401245706]
+poloidal_view.CameraFocalPoint = [0.0, 0.0010000001639127731, 9.999999717180685e-10]
+poloidal_view.CameraFocalDisk = 1.0
+poloidal_view.CameraParallelScale = 0.016985287903674255
+poloidal_view.BackEnd = "OSPRay raycaster"
+poloidal_view.OSPRayMaterialLibrary = materialLibrary1
 
 # Create a new 'Render View'
-renderView3 = CreateView("RenderView")
-renderView3.ViewSize = [1920, 1440]
-renderView3.AxesGrid = "GridAxes3DActor"
-renderView3.OrientationAxesVisibility = 0
-renderView3.CenterOfRotation = [
+retention_3d_view = CreateView("RenderView")
+retention_3d_view.ViewSize = [1920, 1440]
+retention_3d_view.AxesGrid = "GridAxes3DActor"
+retention_3d_view.OrientationAxesVisibility = 0
+retention_3d_view.CenterOfRotation = [
     -0.005750000011175871,
     0.0010000001639127731,
     0.0012499999720603228,
 ]
-renderView3.StereoType = "Crystal Eyes"
-renderView3.CameraPosition = [
+retention_3d_view.StereoType = "Crystal Eyes"
+retention_3d_view.CameraPosition = [
     0.029187531898639388,
     0.021267593211478808,
     -0.033650063037602,
 ]
-renderView3.CameraFocalPoint = [
+retention_3d_view.CameraFocalPoint = [
     -0.005750000011175871,
     0.0010000001639127731,
     0.0012499999720603228,
 ]
-renderView3.CameraViewUp = [
+retention_3d_view.CameraViewUp = [
     -0.25512670601409737,
     0.9249482042923544,
     0.2817466650286133,
 ]
-renderView3.CameraFocalDisk = 1.0
-renderView3.CameraParallelScale = 0.013815752050297017
-renderView3.BackEnd = "OSPRay raycaster"
-renderView3.OSPRayMaterialLibrary = materialLibrary1
+retention_3d_view.CameraFocalDisk = 1.0
+retention_3d_view.CameraParallelScale = 0.013815752050297017
+retention_3d_view.BackEnd = "OSPRay raycaster"
+retention_3d_view.OSPRayMaterialLibrary = materialLibrary1
 
 # Create a new 'Render View'
-renderView4 = CreateView("RenderView")
-renderView4.ViewSize = [1920, 1440]
-renderView4.AxesGrid = "GridAxes3DActor"
-renderView4.OrientationAxesVisibility = 0
-renderView4.CenterOfRotation = [-0.00575, 0.001, 0.00175]
-renderView4.UseLight = 0
-renderView4.StereoType = "Crystal Eyes"
-renderView4.CameraPosition = [
+geometry_view = CreateView("RenderView")
+geometry_view.ViewSize = [1920, 1440]
+geometry_view.AxesGrid = "GridAxes3DActor"
+geometry_view.OrientationAxesVisibility = 0
+geometry_view.CenterOfRotation = [-0.00575, 0.001, 0.00175]
+geometry_view.UseLight = 0
+geometry_view.StereoType = "Crystal Eyes"
+geometry_view.CameraPosition = [
     0.03527525163972251,
     0.028756112770091793,
     -0.04017562245348884,
 ]
-renderView4.CameraFocalPoint = [
+geometry_view.CameraFocalPoint = [
     -0.0067691074961900195,
     -0.0002652169498046825,
     -0.00024248032049179464,
 ]
-renderView4.CameraViewUp = [-0.299472437450573, 0.8936709499800797, 0.3341683593177468]
-renderView4.CameraFocalDisk = 1.0
-renderView4.CameraParallelScale = 0.013869931506680198
-renderView4.BackEnd = "OSPRay raycaster"
-renderView4.OSPRayMaterialLibrary = materialLibrary1
+geometry_view.CameraViewUp = [
+    -0.299472437450573,
+    0.8936709499800797,
+    0.3341683593177468,
+]
+geometry_view.CameraFocalDisk = 1.0
+geometry_view.CameraParallelScale = 0.013869931506680198
+geometry_view.BackEnd = "OSPRay raycaster"
+geometry_view.OSPRayMaterialLibrary = materialLibrary1
 
 SetActiveView(None)
 
@@ -124,27 +128,27 @@ SetActiveView(None)
 
 # create new layout object 'Layout #1'
 layout1 = CreateLayout(name="Layout #1")
-layout1.AssignView(0, renderView2)
+layout1.AssignView(0, poloidal_view)
 layout1.SetSize(2892, 1545)
 
 # create new layout object 'Layout #2'
 layout2 = CreateLayout(name="Layout #2")
-layout2.AssignView(0, renderView1)
+layout2.AssignView(0, toroidal_view)
 layout2.SetSize(1920, 1440)
 
 # create new layout object 'Layout #3'
 layout3 = CreateLayout(name="Layout #3")
-layout3.AssignView(0, renderView3)
+layout3.AssignView(0, retention_3d_view)
 layout3.SetSize(1920, 1440)
 
 # create new layout object 'Layout #4'
 layout4 = CreateLayout(name="Layout #4")
-layout4.AssignView(0, renderView4)
+layout4.AssignView(0, geometry_view)
 layout4.SetSize(1920, 1440)
 
 # ----------------------------------------------------------------
 # restore active view
-SetActiveView(renderView2)
+SetActiveView(poloidal_view)
 # ----------------------------------------------------------------
 
 # ----------------------------------------------------------------
@@ -428,11 +432,11 @@ transform1.Transform = "Transform"
 transform1.Transform.Translate = [0.001, 0.0, 0.0]
 
 # ----------------------------------------------------------------
-# setup the visualization in view 'renderView1'
+# setup the visualization in view 'toroidal_view'
 # ----------------------------------------------------------------
 
 # show data from contour2
-contour2Display = Show(contour2, renderView1, "GeometryRepresentation")
+contour2Display = Show(contour2, toroidal_view, "GeometryRepresentation")
 
 # trace defaults for the display properties.
 contour2Display.Representation = "Surface"
@@ -484,7 +488,7 @@ contour2Display.OpacityTransferFunction.Points = [
 
 # show data from poloidalsection_1
 poloidalsection_1Display = Show(
-    poloidalsection_1, renderView1, "GeometryRepresentation"
+    poloidalsection_1, toroidal_view, "GeometryRepresentation"
 )
 
 # get 2D transfer function for 'temperature'
@@ -1571,7 +1575,7 @@ poloidalsection_1Display.OpacityTransferFunction.Points = [
 ]
 
 # show data from streamTracer2
-streamTracer2Display = Show(streamTracer2, renderView1, "GeometryRepresentation")
+streamTracer2Display = Show(streamTracer2, toroidal_view, "GeometryRepresentation")
 
 # trace defaults for the display properties.
 streamTracer2Display.Representation = "Surface"
@@ -1622,7 +1626,7 @@ streamTracer2Display.OpacityTransferFunction.Points = [
 ]
 
 # show data from reflect2
-reflect2Display = Show(reflect2, renderView1, "UnstructuredGridRepresentation")
+reflect2Display = Show(reflect2, toroidal_view, "UnstructuredGridRepresentation")
 
 # get 2D transfer function for 'mobile_concentration'
 mobile_concentrationTF2D = GetTransferFunction2D("mobile_concentration")
@@ -2728,12 +2732,12 @@ reflect2Display.OpacityTransferFunction.Points = [
 ]
 
 # ----------------------------------------------------------------
-# setup the visualization in view 'renderView2'
+# setup the visualization in view 'poloidal_view'
 # ----------------------------------------------------------------
 
 # show data from toroidalsection_1
 toroidalsection_1Display = Show(
-    toroidalsection_1, renderView2, "GeometryRepresentation"
+    toroidalsection_1, poloidal_view, "GeometryRepresentation"
 )
 
 # trace defaults for the display properties.
@@ -2785,7 +2789,7 @@ toroidalsection_1Display.OpacityTransferFunction.Points = [
 ]
 
 # show data from contour1
-contour1Display = Show(contour1, renderView2, "GeometryRepresentation")
+contour1Display = Show(contour1, poloidal_view, "GeometryRepresentation")
 
 # trace defaults for the display properties.
 contour1Display.Representation = "Surface"
@@ -2836,7 +2840,7 @@ contour1Display.OpacityTransferFunction.Points = [
 ]
 
 # show data from reflect1
-reflect1Display = Show(reflect1, renderView2, "UnstructuredGridRepresentation")
+reflect1Display = Show(reflect1, poloidal_view, "UnstructuredGridRepresentation")
 
 # trace defaults for the display properties.
 reflect1Display.Representation = "Surface"
@@ -2890,7 +2894,7 @@ reflect1Display.OpacityTransferFunction.Points = [
 ]
 
 # show data from streamTracer1
-streamTracer1Display = Show(streamTracer1, renderView2, "GeometryRepresentation")
+streamTracer1Display = Show(streamTracer1, poloidal_view, "GeometryRepresentation")
 
 # trace defaults for the display properties.
 streamTracer1Display.Representation = "Surface"
@@ -2942,8 +2946,8 @@ streamTracer1Display.OpacityTransferFunction.Points = [
 
 # setup the color legend parameters for each legend in this view
 
-# get color legend/bar for temperatureLUT in view renderView2
-temperatureLUTColorBar = GetScalarBar(temperatureLUT, renderView2)
+# get color legend/bar for temperatureLUT in view poloidal_view
+temperatureLUTColorBar = GetScalarBar(temperatureLUT, poloidal_view)
 temperatureLUTColorBar.WindowLocation = "Any Location"
 temperatureLUTColorBar.Position = [0.21051854633499967, 0.33388349514563104]
 temperatureLUTColorBar.Title = "Temperature (K)"
@@ -2970,8 +2974,8 @@ temperatureLUTColorBar.DataRangeLabelFormat = "%-#6.1f"
 # set color bar visibility
 temperatureLUTColorBar.Visibility = 1
 
-# get color legend/bar for mobile_concentrationLUT in view renderView2
-mobile_concentrationLUTColorBar = GetScalarBar(mobile_concentrationLUT, renderView2)
+# get color legend/bar for mobile_concentrationLUT in view poloidal_view
+mobile_concentrationLUTColorBar = GetScalarBar(mobile_concentrationLUT, poloidal_view)
 mobile_concentrationLUTColorBar.WindowLocation = "Any Location"
 mobile_concentrationLUTColorBar.Position = [0.7103025630943388, 0.3164077669902913]
 mobile_concentrationLUTColorBar.Title = "Mobile concentration (H/m$^3$)"
@@ -2986,18 +2990,18 @@ mobile_concentrationLUTColorBar.LabelFormat = "%-#6.1e"
 mobile_concentrationLUTColorBar.Visibility = 1
 
 # show color legend
-toroidalsection_1Display.SetScalarBarVisibility(renderView2, True)
+toroidalsection_1Display.SetScalarBarVisibility(poloidal_view, True)
 
 # show color legend
-reflect1Display.SetScalarBarVisibility(renderView2, True)
+reflect1Display.SetScalarBarVisibility(poloidal_view, True)
 
 # ----------------------------------------------------------------
-# setup the visualization in view 'renderView3'
+# setup the visualization in view 'retention_3d_view'
 # ----------------------------------------------------------------
 
 # show data from retentionxdmf
 retentionxdmfDisplay = Show(
-    retentionxdmf, renderView3, "UnstructuredGridRepresentation"
+    retentionxdmf, retention_3d_view, "UnstructuredGridRepresentation"
 )
 
 # get 2D transfer function for 'retention'
@@ -4096,10 +4100,10 @@ retentionxdmfDisplay.OpacityTransferFunction.Points = [
 
 # setup the color legend parameters for each legend in this view
 
-# get color legend/bar for retentionLUT in view renderView3
-retentionLUTColorBar = GetScalarBar(retentionLUT, renderView3)
+# get color legend/bar for retentionLUT in view retention_3d_view
+retentionLUTColorBar = GetScalarBar(retentionLUT, retention_3d_view)
 retentionLUTColorBar.WindowLocation = "Any Location"
-retentionLUTColorBar.Position = [0.632831982543641, 0.320625]
+retentionLUTColorBar.Position = [0.65, 0.320625]
 retentionLUTColorBar.Title = "H retention (H/m$^3$)"
 retentionLUTColorBar.ComponentTitle = ""
 retentionLUTColorBar.TitleJustification = "Left"
@@ -4107,20 +4111,22 @@ retentionLUTColorBar.HorizontalTitle = 1
 retentionLUTColorBar.ScalarBarLength = 0.3299999999999999
 retentionLUTColorBar.AutomaticLabelFormat = 0
 retentionLUTColorBar.LabelFormat = "%-#6.1e"
+retentionLUTColorBar.TitleFontSize = 25
+retentionLUTColorBar.LabelFontSize = 25
 
 # set color bar visibility
 retentionLUTColorBar.Visibility = 1
 
 # show color legend
-retentionxdmfDisplay.SetScalarBarVisibility(renderView3, True)
+retentionxdmfDisplay.SetScalarBarVisibility(retention_3d_view, True)
 
 # ----------------------------------------------------------------
-# setup the visualization in view 'renderView4'
+# setup the visualization in view 'geometry_view'
 # ----------------------------------------------------------------
 
 # show data from mesh_cellsxdmf
 mesh_cellsxdmfDisplay = Show(
-    mesh_cellsxdmf, renderView4, "UnstructuredGridRepresentation"
+    mesh_cellsxdmf, geometry_view, "UnstructuredGridRepresentation"
 )
 
 # get 2D transfer function for 'f'
@@ -4170,7 +4176,7 @@ mesh_cellsxdmfDisplay.SelectInputVectors = [None, ""]
 mesh_cellsxdmfDisplay.WriteLog = ""
 
 # show data from transform1
-transform1Display = Show(transform1, renderView4, "UnstructuredGridRepresentation")
+transform1Display = Show(transform1, geometry_view, "UnstructuredGridRepresentation")
 
 # trace defaults for the display properties.
 transform1Display.Representation = "Surface"
@@ -4199,7 +4205,7 @@ transform1Display.SelectInputVectors = [None, ""]
 transform1Display.WriteLog = ""
 
 # show data from transform2
-transform2Display = Show(transform2, renderView4, "GeometryRepresentation")
+transform2Display = Show(transform2, geometry_view, "GeometryRepresentation")
 
 # trace defaults for the display properties.
 transform2Display.Representation = "Surface"
@@ -4248,24 +4254,30 @@ temperaturePWF.ScalarRangeInitialized = 1
 SetActiveSource(None)
 # ----------------------------------------------------------------
 
-for view in [renderView1, renderView2, renderView3, renderView4]:
+for view in [toroidal_view, poloidal_view, retention_3d_view, geometry_view]:
     view.ViewTime = retentionxdmf.TimestepValues[-1]
-    view.Background = [0.0, 0.0, 0.0]
-    SetActiveView(view)
-    SetViewProperties(Background=[0.0, 0.0, 0.0])
-    Render()
-    SaveScreenshot("test.png", view)
+    SetViewProperties(
+        view=view,
+        Background=[1.0, 1.0, 1.0],
+        UseColorPaletteForBackground=0,
+    )
 
 # ----------------------------------------------------------------
 # export views
 # ----------------------------------------------------------------
-ExportView("./blabla.pdf", view=renderView1)
+ExportView("toroidal.pdf", view=toroidal_view)
+SaveScreenshot("toroidal.png", toroidal_view, OverrideColorPalette="WhiteBackground")
 
-ExportView("./blabla2.pdf", view=renderView2)
+ExportView("poloidal.pdf", view=poloidal_view)
+SaveScreenshot("poloidal.png", poloidal_view, OverrideColorPalette="WhiteBackground")
 
-ExportView("./blabla3.pdf", view=renderView3)
+ExportView("retention_3d.pdf", view=retention_3d_view)
+SaveScreenshot(
+    "retention_3d.png", retention_3d_view, OverrideColorPalette="WhiteBackground"
+)
 
-ExportView("./blabla4.pdf", view=renderView4)
+ExportView("geometry.pdf", view=geometry_view)
+SaveScreenshot("geometry.png", geometry_view, OverrideColorPalette="WhiteBackground")
 
 if __name__ == "__main__":
     # generate extracts
