@@ -4248,24 +4248,24 @@ temperaturePWF.ScalarRangeInitialized = 1
 SetActiveSource(None)
 # ----------------------------------------------------------------
 
-for view in [renderView1, renderView2, renderView3, renderView4]:
-    view.ViewTime = retentionxdmf.TimestepValues[-1]
-    view.Background = [0.0, 0.0, 0.0]
-    # SetActiveView(view)
-    # SetViewProperties(Background=[0.0, 0.0, 0.0])
-    # Render()
-    SaveScreenshot("test.png", view)
+# for view in [renderView1, renderView2, renderView3, renderView4]:
+#     view.ViewTime = retentionxdmf.TimestepValues[-1]
+#     view.Background = [0.0, 0.0, 0.0]
+#     SetActiveView(view)
+#     SetViewProperties(Background=[0.0, 0.0, 0.0])
+#     Render()
+#     SaveScreenshot("test.png", view)
 
-# ----------------------------------------------------------------
-# export views
-# ----------------------------------------------------------------
-ExportView("./blabla.pdf", view=renderView1)
+# # ----------------------------------------------------------------
+# # export views
+# # ----------------------------------------------------------------
+# ExportView("./blabla.pdf", view=renderView1)
 
-ExportView("./blabla2.pdf", view=renderView2)
+# ExportView("./blabla2.pdf", view=renderView2)
 
-ExportView("./blabla3.pdf", view=renderView3)
+# ExportView("./blabla3.pdf", view=renderView3)
 
-ExportView("./blabla4.pdf", view=renderView4)
+# ExportView("./blabla4.pdf", view=renderView4)
 
 if __name__ == "__main__":
     # generate extracts
