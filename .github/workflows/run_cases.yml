@@ -86,7 +86,7 @@ jobs:
       run: |
         python tds_ogorodnikova.py
 
-run-gallery-monoblock:
+  run-gallery-monoblock:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -107,7 +107,7 @@ run-gallery-monoblock:
       run: |
         python main.py
 
-run-verification:
+  run-verification:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
