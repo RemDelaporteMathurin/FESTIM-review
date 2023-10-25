@@ -2949,7 +2949,7 @@ streamTracer1Display.OpacityTransferFunction.Points = [
 # get color legend/bar for temperatureLUT in view poloidal_view
 temperatureLUTColorBar = GetScalarBar(temperatureLUT, poloidal_view)
 temperatureLUTColorBar.WindowLocation = "Any Location"
-temperatureLUTColorBar.Position = [0.21051854633499967, 0.33388349514563104]
+temperatureLUTColorBar.Position = [0.27, 0.33]
 temperatureLUTColorBar.Title = "Temperature (K)"
 temperatureLUTColorBar.ComponentTitle = ""
 temperatureLUTColorBar.TitleJustification = "Right"
@@ -2970,6 +2970,8 @@ temperatureLUTColorBar.CustomLabels = [
 ]
 temperatureLUTColorBar.RangeLabelFormat = "%-6.0f"
 temperatureLUTColorBar.DataRangeLabelFormat = "%-#6.1f"
+temperatureLUTColorBar.TitleFontSize = 25
+temperatureLUTColorBar.LabelFontSize = 25
 
 # set color bar visibility
 temperatureLUTColorBar.Visibility = 1
@@ -2977,7 +2979,7 @@ temperatureLUTColorBar.Visibility = 1
 # get color legend/bar for mobile_concentrationLUT in view poloidal_view
 mobile_concentrationLUTColorBar = GetScalarBar(mobile_concentrationLUT, poloidal_view)
 mobile_concentrationLUTColorBar.WindowLocation = "Any Location"
-mobile_concentrationLUTColorBar.Position = [0.7103025630943388, 0.3164077669902913]
+mobile_concentrationLUTColorBar.Position = [0.70, 0.33]
 mobile_concentrationLUTColorBar.Title = "Mobile concentration (H/m$^3$)"
 mobile_concentrationLUTColorBar.ComponentTitle = ""
 mobile_concentrationLUTColorBar.TitleJustification = "Left"
@@ -2985,6 +2987,8 @@ mobile_concentrationLUTColorBar.HorizontalTitle = 1
 mobile_concentrationLUTColorBar.ScalarBarLength = 0.3299999999999996
 mobile_concentrationLUTColorBar.AutomaticLabelFormat = 0
 mobile_concentrationLUTColorBar.LabelFormat = "%-#6.1e"
+mobile_concentrationLUTColorBar.TitleFontSize = 25
+mobile_concentrationLUTColorBar.LabelFontSize = 25
 
 # set color bar visibility
 mobile_concentrationLUTColorBar.Visibility = 1
@@ -4104,7 +4108,7 @@ retentionxdmfDisplay.OpacityTransferFunction.Points = [
 retentionLUTColorBar = GetScalarBar(retentionLUT, retention_3d_view)
 retentionLUTColorBar.WindowLocation = "Any Location"
 retentionLUTColorBar.Position = [0.65, 0.320625]
-retentionLUTColorBar.Title = "H retention (H/m$^3$)"
+retentionLUTColorBar.Title = "Retention (H/m$^3$)"
 retentionLUTColorBar.ComponentTitle = ""
 retentionLUTColorBar.TitleJustification = "Left"
 retentionLUTColorBar.HorizontalTitle = 1
