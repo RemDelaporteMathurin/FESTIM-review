@@ -4254,8 +4254,10 @@ temperaturePWF.ScalarRangeInitialized = 1
 SetActiveSource(None)
 # ----------------------------------------------------------------
 
+animationScene1 = GetAnimationScene()
+animationScene1.GoToLast()
+
 for view in [toroidal_view, poloidal_view, retention_3d_view, geometry_view]:
-    view.ViewTime = retentionxdmf.TimestepValues[-1]
     SetActiveView(view)
     LoadPalette(paletteName="WhiteBackground")
 
