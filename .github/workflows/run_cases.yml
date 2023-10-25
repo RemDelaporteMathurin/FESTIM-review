@@ -122,7 +122,7 @@ jobs:
     - name: Run paraview
       shell: bash -l {0}
       working-directory: ./gallery/monoblock
-      run: pvpython --force-offscreen-rendering vis.py
+      run: pvbatch vis.py
 
   run-verification:
     runs-on: ubuntu-latest
