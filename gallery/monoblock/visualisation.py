@@ -4256,11 +4256,8 @@ SetActiveSource(None)
 
 for view in [toroidal_view, poloidal_view, retention_3d_view, geometry_view]:
     view.ViewTime = retentionxdmf.TimestepValues[-1]
-    SetViewProperties(
-        view=view,
-        Background=[1.0, 1.0, 1.0],
-        UseColorPaletteForBackground=0,
-    )
+    SetActiveView(view)
+    LoadPalette(paletteName="WhiteBackground")
 
 # ----------------------------------------------------------------
 # export views
