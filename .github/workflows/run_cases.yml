@@ -118,7 +118,7 @@ jobs:
     
     - name: Navigate
       run: |
-        cd "./Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64"
+        cd "${GITHUB_WORKSPACE}/Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64"
         ls -l bin
     
     - name: Run paraview
