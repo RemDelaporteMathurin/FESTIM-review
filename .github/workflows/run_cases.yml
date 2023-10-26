@@ -126,7 +126,7 @@ jobs:
 
     - name: Navigate
       run: |
-        ls
+        pwd
         cd Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64
         ls -l bin
     
