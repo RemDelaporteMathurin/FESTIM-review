@@ -118,6 +118,7 @@ jobs:
 
     - name: Extract paraview
       shell: bash
+      run: |
         tar -xf Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64.tar.gz
         # echo "ParaView-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
         # echo "${GITHUB_PATH}"
