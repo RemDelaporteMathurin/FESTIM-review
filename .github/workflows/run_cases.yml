@@ -120,6 +120,7 @@ jobs:
         wget -O Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
         tar -xf Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64.tar.gz
         export PATH=$PATH:$PWD/ParaView-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64/bin
+        source ~/.bashrc
     
     - name: Run paraview
       working-directory: ./gallery/monoblock
