@@ -118,6 +118,7 @@ jobs:
         tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
         echo "ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
         # echo "${GITHUB_PATH}"
+        ls -l ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64
     
     - name: Run paraview
       working-directory: ./gallery/monoblock
