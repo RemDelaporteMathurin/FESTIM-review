@@ -114,21 +114,10 @@ jobs:
     - name: Dl paraview
       shell: bash
       run: |
-        wget -O Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
-
-    - name: Extract paraview
-      shell: bash
-      run: |
-        tar -xf Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64.tar.gz
-        # echo "ParaView-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
+        wget -O Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
+        tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
+        echo "ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
         # echo "${GITHUB_PATH}"
-        ls -l
-
-    - name: Navigate
-      run: |
-        pwd
-        cd Paraview-5.11.2-0smesa-MPI-Linux-Python3.9-x86_64
-        ls -l bin
     
     - name: Run paraview
       working-directory: ./gallery/monoblock
