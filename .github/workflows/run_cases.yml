@@ -76,7 +76,9 @@ jobs:
       - name: Plot COMSOL
         working-directory: ./comparison/comsol
         run: |
-          pvbatch visualisation.py
+          pvbatch visualisation_cm.py
+          pvbatch visualisation_temperature.py
+          pvbatch visualisation_retention.py
 
   run-gallery-tds:
     runs-on: ubuntu-latest
