@@ -4268,18 +4268,18 @@ for view in [toroidal_view, poloidal_view, retention_3d_view, geometry_view]:
 # ----------------------------------------------------------------
 # export views
 # ----------------------------------------------------------------
-ExportView("toroidal.pdf", view=toroidal_view)
+ExportView("toroidal.pdf", view=toroidal_view, Rendertextaspaths=0)
 SaveScreenshot("toroidal.png", toroidal_view, OverrideColorPalette="WhiteBackground")
 
-ExportView("poloidal.pdf", view=poloidal_view)
+ExportView("poloidal.pdf", view=poloidal_view, Rendertextaspaths=0)
 SaveScreenshot("poloidal.png", poloidal_view, OverrideColorPalette="WhiteBackground")
 
-ExportView("retention_3d.pdf", view=retention_3d_view)
+ExportView("retention_3d.pdf", view=retention_3d_view, Rendertextaspaths=0)
 SaveScreenshot(
     "retention_3d.png", retention_3d_view, OverrideColorPalette="WhiteBackground"
 )
 
-ExportView("geometry.pdf", view=geometry_view)
+ExportView("geometry.pdf", view=geometry_view, Rendertextaspaths=0)
 SaveScreenshot("geometry.png", geometry_view, OverrideColorPalette="WhiteBackground")
 
 if __name__ == "__main__":
