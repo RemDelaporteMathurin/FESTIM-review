@@ -118,7 +118,6 @@ jobs:
       working-directory: ./gallery/monoblock
       shell: bash
       run: |
-        echo "${PATH}"
         pvbatch visualisation.py
 
   run-verification:
