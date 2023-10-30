@@ -22,10 +22,11 @@ renderView1.AxesGrid = "GridAxes3DActor"
 renderView1.OrientationAxesVisibility = 0
 renderView1.CenterOfRotation = [-0.00575, 0.001, 0.00175]
 renderView1.StereoType = "Crystal Eyes"
+zoom = 1.3
 renderView1.CameraPosition = [
-    0.03037131659597036,
-    0.018874920820419597,
-    -0.033570685008386496,
+    zoom * 0.03037131659597036,
+    zoom * 0.018874920820419597,
+    zoom * -0.033570685008386496,
 ]
 renderView1.CameraFocalPoint = [
     -0.005750000000000002,
@@ -96,10 +97,18 @@ op.RescaleTransferFunction(min_T, max_T)
 # get color legend/bar for colorLUT in view renderView1
 colorLUTColorBar = GetScalarBar(colorLUT, renderView1)
 colorLUTColorBar.WindowLocation = "Any Location"
-colorLUTColorBar.Position = [0.7769886363636364, 0.25547045951859954]
-colorLUTColorBar.Title = "Color"
+colorLUTColorBar.HorizontalTitle = 1
+colorLUTColorBar.Position = [0.60, 0.25]
+colorLUTColorBar.Title = "K"
+colorLUTColorBar.TitleJustification = "Left"
+# colorLUTColorBar.ScalarBarLength = 0.5
 colorLUTColorBar.ComponentTitle = ""
-
+colorLUTColorBar.AutomaticLabelFormat = 0
+colorLUTColorBar.LabelFormat = "%-6.0f"
+colorLUTColorBar.TitleFontSize = 32
+colorLUTColorBar.LabelFontSize = 32
+# colorLUTColorBar.UseCustomLabels = 1
+# colorLUTColorBar.CustomLabels = [5e20, 6e20]
 # set color bar visibility
 colorLUTColorBar.Visibility = 1
 
@@ -115,6 +124,10 @@ TvtuDisplay.SetScalarBarVisibility(renderView1, True)
 # restore active source
 SetActiveSource(Tvtu)
 # ----------------------------------------------------------------
+
+LoadPalette(paletteName="WhiteBackground")
+ExportView("temperature_comsol.pdf", view=renderView1, Rendertextaspaths=0)
+SaveScreenshot("temperature_comsol.png", renderView1)
 
 if __name__ == "__main__":
     # generate extracts
