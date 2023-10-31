@@ -201,9 +201,17 @@ my_model.dt = F.Stepsize(initial_value=1e5, stepsize_change_ratio=1.1)
 
 derived_quantities = F.DerivedQuantities(
     [
+        F.TotalVolume(field="solute", volume=id_W),
+        F.TotalVolume(field="solute", volume=id_Cu),
+        F.TotalVolume(field="solute", volume=id_CuCrZr),
         F.TotalVolume(field="retention", volume=id_W),
         F.TotalVolume(field="retention", volume=id_Cu),
         F.TotalVolume(field="retention", volume=id_CuCrZr),
+        F.TotalVolume(field="1", volume=id_W),
+        F.TotalVolume(field="2", volume=id_W),
+        F.TotalVolume(field="2", volume=id_Cu),
+        F.TotalVolume(field="2", volume=id_CuCrZr),
+        F.SurfaceFlux(field="solute", surface=id_W_top),
         F.SurfaceFlux(field="solute", surface=id_coolant),
         F.SurfaceFlux(field="solute", surface=id_poloidal_gap_W),
         F.SurfaceFlux(field="solute", surface=id_poloidal_gap_Cu),
@@ -211,12 +219,12 @@ derived_quantities = F.DerivedQuantities(
         F.SurfaceFlux(field="solute", surface=id_top_pipe),
         F.SurfaceFlux(field="solute", surface=id_bottom),
     ],
-    filename="derived_quantities.csv",
+    filename="./derived_quantities.csv",
 )
 
 my_model.exports = F.Exports(
     [
-        # derived_quantities,
+        derived_quantities,
         F.XDMFExport("T"),
         F.XDMFExport("solute", checkpoint=True),
         F.XDMFExport("retention", checkpoint=True),
