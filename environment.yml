@@ -7,4 +7,4 @@ dependencies:
   - matplotlib
   - numpy<1.25
   - pip:
-    - git+https://github.com/remdelaportemathurin/festim@main
+    - festim==1
