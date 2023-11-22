@@ -52,4 +52,8 @@ for ax in axs:
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
+plt.savefig("comparison_profiles.svg")
+plt.savefig("comparison_profiles.pdf")
+plt.savefig("comparison_profiles.png")
+
 plt.show()

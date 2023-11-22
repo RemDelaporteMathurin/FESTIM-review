@@ -143,4 +143,9 @@ for ax in axs:
     # remove top and right axis
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
+
+plt.savefig("comparison_derived_quantities.svg")
+plt.savefig("comparison_derived_quantities.pdf")
+plt.savefig("comparison_derived_quantities.png")
+
 plt.show()
