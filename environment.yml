@@ -8,3 +8,4 @@ dependencies:
   - numpy<1.25
   - pip:
     - festim==1
+    - meshio[all]
