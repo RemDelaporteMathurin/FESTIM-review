@@ -39,6 +39,7 @@ plt.gca().set_yticks(ypos + width / 2, labels=labels)
 plt.legend(bbox_to_anchor=(0.7, 1.1), frameon=False, ncol=2)
 plt.gca().spines[["left", "right", "top", "bottom"]].set_visible(False)
 plt.grid(True, which="major", axis="x", alpha=0.3)
+plt.gca().tick_params(axis="both", which="both", length=0)
 plt.xlabel("Execution time (s)")
 plt.tight_layout()
 for ext in ["png", "svg", "pdf"]:
