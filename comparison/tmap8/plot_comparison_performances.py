@@ -14,8 +14,10 @@ ypos = np.arange(len(labels))
 festim_times = [case['festim'] for case in data.values()]
 tmap8_times = [case['tmap'] for case in data.values()]
 
-bartmap = plt.barh(ypos + width, tmap8_times, width, label='TMAP8')
-barfestim = plt.barh(ypos, festim_times, width, label='FESTIM')
+bartmap = plt.barh(
+    ypos + width, tmap8_times, width, label="TMAP8", color="tab:orange", alpha=0.5
+)
+barfestim = plt.barh(ypos, festim_times, width, label="FESTIM", color="tab:blue")
 
 plt.bar_label(barfestim, padding=8, fmt='%.1f s', fontsize=10, color=barfestim.patches[0].get_facecolor())
 plt.bar_label(bartmap, padding=8, fmt='%.1f s', fontsize=10, color=bartmap.patches[0].get_facecolor())
