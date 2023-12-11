@@ -6,5 +6,6 @@ dependencies:
   - fenics
   - matplotlib
   - numpy<1.25
+  - scipy
   - pip:
     - festim==1
