@@ -1,12 +1,6 @@
 import festim as F
 import numpy as np
 import fenics as f
-from analytical_enclosure import (
-    analytical_expression_fractional_release,
-    cumulative_flux,
-)
-
-from scipy.integrate import cumtrapz
 
 encl_vol = 5.20e-11  # m3  same
 encl_surf = 2.16e-6  # m2  same
@@ -63,7 +57,7 @@ class CustomSimulation(F.Simulation):
 
 my_model = CustomSimulation()
 
-vertices = np.linspace(0, l, 100)
+vertices = np.linspace(0, l, 10)
 
 my_model.mesh = F.MeshFromVertices(vertices)
 
@@ -87,7 +81,7 @@ my_model.T = F.Temperature(temperature)
 my_model.settings = F.Settings(
     absolute_tolerance=1e8,
     relative_tolerance=1e-10,
-    final_time=45,
+    final_time=140,
 )
 
 left_flux = F.HydrogenFlux(surface=1)
@@ -106,63 +100,3 @@ my_model.dt = F.Stepsize(initial_value=0.1)
 my_model.initialise()
 my_model.run()
 print(f"final pressure is {float(left_bc.pressure)}")
-
-
-# ------------ post processing ----------------
-
-t = derived_quantities.t
-pressures = np.array(pressure_export.data)
-fractional_release = 1 - pressures / initial_pressure
-right_flux = np.abs(right_flux.data)
-
-import matplotlib.pyplot as plt
-
-plt.figure()
-plt.plot(t, fractional_release, linestyle="--", label="FESTIM")
-
-times = np.linspace(0, my_model.settings.final_time, 1000)
-analytical = analytical_expression_fractional_release(
-    t=times,
-    P_0=initial_pressure,
-    D=my_model.materials.materials[0].D_0,
-    S=left_bc.H_0,
-    V=encl_vol,
-    T=temperature,
-    A=encl_surf,
-    l=l,
-)
-plt.plot(times, analytical, label="analytical")
-plt.legend()
-plt.xlabel("Time (s)")
-plt.ylabel("Fractional release")
-plt.grid(alpha=0.3)
-
-plt.figure()
-plt.plot(t, right_flux)
-
-plt.figure()
-
-initial_quantity = initial_pressure * encl_vol / R / temperature * avogadro
-cumulative_released = cumtrapz(right_flux, t, initial=0) * encl_surf
-
-plt.plot(t, cumulative_released / initial_quantity, linestyle="--", label="FESTIM")
-
-analytical = cumulative_flux(
-    t=times,
-    P_0=initial_pressure,
-    D=my_model.materials.materials[0].D_0,
-    S=left_bc.H_0,
-    V=encl_vol,
-    T=temperature,
-    A=encl_surf,
-    l=l,
-)
-plt.plot(times, analytical, label="analytical")
-
-plt.legend()
-plt.xlabel("Time (s)")
-plt.ylabel("Cumulative release")
-plt.grid(alpha=0.3)
-
-
-plt.show()
