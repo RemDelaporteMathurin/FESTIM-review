@@ -42,7 +42,7 @@ plt.gca().spines[["right", "top"]].set_visible(False)
 plt.grid(True, which="major", alpha=0.3)
 
 plt.xlabel("Time (s)")
-plt.ylabel("Mobile concentration")
+plt.ylabel("Mobile concentration (H/m$^3$)")
 plt.tight_layout()
 
 for ext in ["png", "svg", "pdf"]:
