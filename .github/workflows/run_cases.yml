@@ -75,16 +75,28 @@ jobs:
 
     - name: Clone MOOSE
       run: |
-        mkdir -p ~/projects
-        cd ~/projects
         git clone https://github.com/idaholab/moose.git
         cd moose
         git checkout master
 
     - name: Build MOOSE
-      working-directory: ~/projects/moose/test
+      working-directory: moose/test
       shell: bash -l {0}
       run: make -j 6
+
+    - name: Clone TMAP8
+      shell: bash -l {0}
+      run: |
+        git clone https://github.com/idaholab/TMAP8.git
+        cd TMAP8
+        git checkout main
+        git submodule update --init moose
+
+    - name: Build TMAP8
+      working-directory: ./TMAP8/test
+      shell: bash -l {0}
+      run: |
+        make -j8
 
   run-comparison-with-comsol:
     runs-on: ubuntu-latest
