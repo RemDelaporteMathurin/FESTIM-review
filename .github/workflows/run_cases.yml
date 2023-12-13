@@ -66,13 +66,12 @@ jobs:
     #     python plot_comparison_performances.py
 
     - name: Set up Conda for TMAP8
-      working-directory: ./comparison/tmap8
       uses: conda-incubator/setup-miniconda@v2
       with:
         activate-environment: tmap8-env
         miniforge-version: latest
         use-mamba: true
-        environment-file: tmap8_env.yml
+        environment-file: ./comparison/tmap8/tmap8_env.yml
 
     - name: Clone MOOSE
       run: |
