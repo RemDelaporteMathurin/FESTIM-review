@@ -10,60 +10,82 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Conda
+    # - name: Set up Conda
+    #   uses: conda-incubator/setup-miniconda@v2
+    #   with:
+    #     activate-environment: myenv
+    #     miniforge-version: latest
+    #     use-mamba: true
+    #     channels: conda-forge
+    #     environment-file: environment.yml
+
+    # - name:  val-2b
+    #   working-directory: ./comparison/tmap8/val_2b
+    #   shell: bash -l {0}
+    #   run: |
+    #     python val_2b.py
+    #     python plot.py
+
+    # - name: ver-1a
+    #   working-directory: ./comparison/tmap8/ver_1a
+    #   shell: bash -l {0}
+    #   run: |
+    #     python ver_1a.py
+
+    # - name:  ver-1c
+    #   working-directory: ./comparison/tmap8/ver_1c
+    #   shell: bash -l {0}
+    #   run: |
+    #     python ver_1c.py
+    #     python plot.py
+
+    # - name:  ver-1d
+    #   working-directory: ./comparison/tmap8/ver_1d
+    #   shell: bash -l {0}
+    #   run: |
+    #     python tmap8_diffusion.py
+    #     python plot_flux.py
+
+    # - name:  ver-1e
+    #   working-directory: ./comparison/tmap8/ver_1e
+    #   shell: bash -l {0}
+    #   run: |
+    #     python tmap8_ver1e.py
+    #     python plot.py
+
+    # - name: Run all scripts
+    #   working-directory: ./comparison/tmap8
+    #   shell: bash -l {0}
+    #   run: |
+    #     python runner_festim.py
+
+    # - name: Run plotting script
+    #   working-directory: ./comparison/tmap8
+    #   shell: bash -l {0}
+    #   run: |
+    #     python plot_comparison_performances.py
+
+    - name: Set up Conda for TMAP8
+      working-directory: ./comparison/tmap8
       uses: conda-incubator/setup-miniconda@v2
       with:
-        activate-environment: myenv
+        activate-environment: tmap8-env
         miniforge-version: latest
         use-mamba: true
-        channels: conda-forge
-        environment-file: environment.yml
+        environment-file: tmap8_env.yml
 
-    - name:  val-2b
-      working-directory: ./comparison/tmap8/val_2b
-      shell: bash -l {0}
+    - name: Clone MOOSE
       run: |
-        python val_2b.py
-        python plot.py
+        mkdir -p ~/projects
+        cd ~/projects
+        git clone https://github.com/idaholab/moose.git
+        cd moose
+        git checkout master
 
-    - name: ver-1a
-      working-directory: ./comparison/tmap8/ver_1a
+    - name: Build MOOSE
+      working-directory: ~/projects/moose/test
       shell: bash -l {0}
-      run: |
-        python ver_1a.py
-
-    - name:  ver-1c
-      working-directory: ./comparison/tmap8/ver_1c
-      shell: bash -l {0}
-      run: |
-        python ver_1c.py
-        python plot.py
-
-    - name:  ver-1d
-      working-directory: ./comparison/tmap8/ver_1d
-      shell: bash -l {0}
-      run: |
-        python tmap8_diffusion.py
-        python plot_flux.py
-
-    - name:  ver-1e
-      working-directory: ./comparison/tmap8/ver_1e
-      shell: bash -l {0}
-      run: |
-        python tmap8_ver1e.py
-        python plot.py
-
-    - name: Run all scripts
-      working-directory: ./comparison/tmap8
-      shell: bash -l {0}
-      run: |
-        python runner_festim.py
-
-    - name: Run plotting script
-      working-directory: ./comparison/tmap8
-      shell: bash -l {0}
-      run: |
-        python plot_comparison_performances.py
+      run: make -j 6
 
   run-comparison-with-comsol:
     runs-on: ubuntu-latest
