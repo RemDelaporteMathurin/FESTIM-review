@@ -14,6 +14,7 @@ def run_external_script(script_path):
 nb_exec = 5
 
 case_to_path = {
+    "ver-1a": "ver_1a/ver_1a.py",
     "ver-1e": "ver_1e/tmap8_ver1e.py",
     "val-2b": "val_2b/val_2b.py",
     "ver-1d-diffusion": "ver_1d/tmap8_diffusion.py",

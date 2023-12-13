@@ -26,6 +26,12 @@ jobs:
         python val_2b.py
         python plot.py
 
+    - name: ver-1a
+      working-directory: ./comparison/tmap8/ver_1a
+      shell: bash -l {0}
+      run: |
+        python ver_1a.py
+
     - name:  ver-1c
       working-directory: ./comparison/tmap8/ver_1c
       shell: bash -l {0}
