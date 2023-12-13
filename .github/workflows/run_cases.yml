@@ -65,6 +65,27 @@ jobs:
       run: |
         python plot_comparison_performances.py
 
+  run-comparison-with-comsol:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Paraview
+        shell: bash
+        run: |
+          wget -O Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
+          tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
+          echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
+      
+      - name: Plot COMSOL
+        working-directory: ./comparison/comsol
+        run: |
+          pvbatch visualisation_cm.py
+          pvbatch visualisation_temperature.py
+          pvbatch visualisation_retention.py
+
   run-gallery-tds:
     runs-on: ubuntu-latest
     steps:

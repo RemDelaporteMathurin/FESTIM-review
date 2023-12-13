@@ -9,3 +9,4 @@ dependencies:
   - scipy
   - pip:
     - festim==1
+    - meshio[all]
