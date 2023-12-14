@@ -178,14 +178,14 @@ plt.title("Exact solution", weight="bold")
 CS1 = f.plot(exact_solution_mobile)
 plt.sca(axs_top[1])
 plt.title("Computed solution", weight="bold")
-CS2 = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
+CS2 = f.plot(computed_solution_mobile)
 
 plt.colorbar(CS2, ax=[axs_top[0], axs_top[1]], shrink=1)
 
 plt.sca(axs_bot[0])
 CS3 = f.plot(exact_solution_trapped)
 plt.sca(axs_bot[1])
-CS4 = f.plot(my_trap.post_processing_solution)
+CS4 = f.plot(computed_solution_trap)
 
 plt.colorbar(CS4, ax=[axs_bot[0], axs_bot[1]], shrink=1)
 
@@ -239,8 +239,8 @@ for axs, exact, computed in zip(
     [axs_top, axs_bot],
     [exact_solution_mobile, exact_solution_trapped],
     [
-        my_model.h_transport_problem.mobile.post_processing_solution,
-        my_trap.post_processing_solution,
+        computed_solution_mobile,
+        computed_solution_trap,
     ],
 ):
     # plot the profiles on the right subplot

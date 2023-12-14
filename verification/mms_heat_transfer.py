@@ -143,7 +143,7 @@ CS1 = f.plot(T_exact, cmap="inferno")
 plt.sca(axs[1])
 plt.xlabel("x")
 plt.title("Computed solution")
-CS2 = f.plot(my_model.T.T, cmap="inferno")
+CS2 = f.plot(computed_solution, cmap="inferno")
 
 plt.colorbar(CS2, ax=[axs[0], axs[1]], shrink=0.8)
 
@@ -188,7 +188,7 @@ for i, profile in enumerate(profiles):
     points_x = np.linspace(start_x, end_x, num=100)
     points_y = np.linspace(start_y, end_y, num=100)
     arc_lengths = compute_arc_length(points_x, points_y)
-    computed_values = [my_model.T.T(x, y) for x, y in zip(points_x, points_y)]
+    computed_values = [computed_solution(x, y) for x, y in zip(points_x, points_y)]
 
     (exact_line,) = plt.plot(
         arc_length_exact, u_values, color=l.get_color(), marker="o", linestyle="None"
