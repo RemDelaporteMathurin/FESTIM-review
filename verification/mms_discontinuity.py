@@ -139,6 +139,10 @@ form = (
 
 f.solve(form == 0, u, bcs=[])
 
+computed_solution = my_model.h_transport_problem.mobile.post_processing_solution
+E = f.errornorm(computed_solution, u, "L2")
+print(f"L2 error: {E:.2e}")
+
 f.XDMFFile("exact_solution.xdmf").write_checkpoint(u, "exact_solution", 0, append=False)
 
 # plot exact solution and computed solution

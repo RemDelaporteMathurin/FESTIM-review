@@ -129,6 +129,10 @@ f.XDMFFile("exact_solution.xdmf").write_checkpoint(
     T_exact, "exact_solution", 0, append=False
 )
 
+computed_solution = my_model.T.T
+E = f.errornorm(computed_solution, T_exact, "L2")
+print(f"L2 error: {E:.2e}")
+
 # plot exact solution and computed solution
 fig, axs = plt.subplots(1, 3, figsize=(15, 5))
 plt.sca(axs[0])

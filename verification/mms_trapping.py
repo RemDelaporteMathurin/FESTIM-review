@@ -136,6 +136,15 @@ exact_solution_trapped = f.project(exact_solution_trapped, V)
 # f.XDMFFile("exact_solution_mobile.xdmf").write_checkpoint(exact_solution_mobile, "exact_solution_mobile", 0, append=False)
 # f.XDMFFile("exact_solution_trapped.xdmf").write_checkpoint(exact_solution_trapped, "exact_solution_trapped", 0, append=False)
 
+
+computed_solution_mobile = my_model.h_transport_problem.mobile.post_processing_solution
+E = f.errornorm(computed_solution_mobile, exact_solution_mobile, "L2")
+print(f"L2 error mobile: {E:.2e}")
+
+computed_solution_trap = my_trap.post_processing_solution
+E = f.errornorm(computed_solution_trap, exact_solution_trapped, "L2")
+print(f"L2 error trap: {E:.2e}")
+
 # plot the trapping and detrapping rates and source
 
 fig, axs = plt.subplots(1, 3, figsize=(15, 5))
