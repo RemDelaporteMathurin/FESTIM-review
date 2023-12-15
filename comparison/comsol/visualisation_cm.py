@@ -81,6 +81,7 @@ arrayInfo = info.GetArrayInformation(
     "Color", vtk.vtkDataObject.FIELD_ASSOCIATION_POINTS
 )
 min_cm, max_cm = arrayInfo.GetComponentRange(0)
+print(f"minimum: {min_cm}, maximum: {max_cm}")
 
 # get color transfer function/color map for 'Color'
 colorLUT = GetColorTransferFunction("Color")
