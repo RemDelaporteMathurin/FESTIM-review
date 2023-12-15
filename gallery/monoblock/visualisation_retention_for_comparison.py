@@ -87,16 +87,20 @@ arrayInfo = info.GetArrayInformation(
     "retention", vtk.vtkDataObject.FIELD_ASSOCIATION_POINTS
 )
 min_inv, max_inv = arrayInfo.GetComponentRange(0)
+print(f"minimum: {min_inv}, maximum: {max_inv}")
+
+comsol_max = 1.2506265243486008e22  # match the max from comsol for comparison
 
 # get color transfer function/color map for 'Color'
 colorLUT = GetColorTransferFunction("retention")
 
 # Apply a preset using its name. Note this may not work as expected when presets have duplicate names.
 colorLUT.ApplyPreset("Viridis (matplotlib)", True)
-colorLUT.RescaleTransferFunction(0, max_inv)
+colorLUT.RescaleTransferFunction(0, comsol_max)
+
 
 op = GetOpacityTransferFunction("retention")
-op.RescaleTransferFunction(0, max_inv)
+op.RescaleTransferFunction(0, comsol_max)
 
 # setup the color legend parameters for each legend in this view
 
