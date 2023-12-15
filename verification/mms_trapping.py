@@ -136,6 +136,15 @@ exact_solution_trapped = f.project(exact_solution_trapped, V)
 # f.XDMFFile("exact_solution_mobile.xdmf").write_checkpoint(exact_solution_mobile, "exact_solution_mobile", 0, append=False)
 # f.XDMFFile("exact_solution_trapped.xdmf").write_checkpoint(exact_solution_trapped, "exact_solution_trapped", 0, append=False)
 
+
+computed_solution_mobile = my_model.h_transport_problem.mobile.post_processing_solution
+E = f.errornorm(computed_solution_mobile, exact_solution_mobile, "L2")
+print(f"L2 error mobile: {E:.2e}")
+
+computed_solution_trap = my_trap.post_processing_solution
+E = f.errornorm(computed_solution_trap, exact_solution_trapped, "L2")
+print(f"L2 error trap: {E:.2e}")
+
 # plot the trapping and detrapping rates and source
 
 fig, axs = plt.subplots(1, 3, figsize=(15, 5))
@@ -169,14 +178,14 @@ plt.title("Exact solution", weight="bold")
 CS1 = f.plot(exact_solution_mobile)
 plt.sca(axs_top[1])
 plt.title("Computed solution", weight="bold")
-CS2 = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
+CS2 = f.plot(computed_solution_mobile)
 
 plt.colorbar(CS2, ax=[axs_top[0], axs_top[1]], shrink=1)
 
 plt.sca(axs_bot[0])
 CS3 = f.plot(exact_solution_trapped)
 plt.sca(axs_bot[1])
-CS4 = f.plot(my_trap.post_processing_solution)
+CS4 = f.plot(computed_solution_trap)
 
 plt.colorbar(CS4, ax=[axs_bot[0], axs_bot[1]], shrink=1)
 
@@ -230,8 +239,8 @@ for axs, exact, computed in zip(
     [axs_top, axs_bot],
     [exact_solution_mobile, exact_solution_trapped],
     [
-        my_model.h_transport_problem.mobile.post_processing_solution,
-        my_trap.post_processing_solution,
+        computed_solution_mobile,
+        computed_solution_trap,
     ],
 ):
     # plot the profiles on the right subplot

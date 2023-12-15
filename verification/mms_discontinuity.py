@@ -139,6 +139,10 @@ form = (
 
 f.solve(form == 0, u, bcs=[])
 
+computed_solution = my_model.h_transport_problem.mobile.post_processing_solution
+E = f.errornorm(computed_solution, u, "L2")
+print(f"L2 error: {E:.2e}")
+
 f.XDMFFile("exact_solution.xdmf").write_checkpoint(u, "exact_solution", 0, append=False)
 
 # plot exact solution and computed solution
@@ -151,7 +155,7 @@ CS1 = f.plot(u)
 plt.sca(axs[1])
 plt.xlabel("x")
 plt.title("Computed solution")
-CS2 = f.plot(my_model.h_transport_problem.mobile.post_processing_solution)
+CS2 = f.plot(computed_solution)
 
 for CS in [CS1, CS2]:
     CS.set_edgecolor("face")
@@ -196,10 +200,7 @@ for i, profile in enumerate(profiles):
     points_x = np.linspace(start_x, end_x, num=100)
     points_y = np.linspace(start_y, end_y, num=100)
     arc_lengths = compute_arc_length(points_x, points_y)
-    computed_values = [
-        my_model.h_transport_problem.mobile.post_processing_solution(x, y)
-        for x, y in zip(points_x, points_y)
-    ]
+    computed_values = [computed_solution(x, y) for x, y in zip(points_x, points_y)]
 
     (exact_line,) = plt.plot(
         arc_length_exact, u_values, color=l.get_color(), marker="o", linestyle="None"
