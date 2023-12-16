@@ -85,9 +85,9 @@ jobs:
         shell: bash -l {0}
         working-directory: ./comparison/comsol
         run: |
-          pvbatch visualisation_cm.py
-          pvbatch visualisation_temperature.py
-          pvbatch visualisation_retention.py
+          python visualisation_cm.py
+          python visualisation_temperature.py
+          python visualisation_retention.py
 
   run-gallery-tds:
     runs-on: ubuntu-latest
@@ -141,7 +141,7 @@ jobs:
       shell: bash -l {0}
       working-directory: ./gallery/monoblock
       run: |
-        pvbatch visualisation.py
+        python visualisation.py
 
   run-verification:
     runs-on: ubuntu-latest
