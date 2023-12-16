@@ -7,6 +7,7 @@ dependencies:
   - matplotlib
   - numpy<1.25
   - scipy
+  - paraview
   - pip:
     - festim==1
     - meshio[all]
