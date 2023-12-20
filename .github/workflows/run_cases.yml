@@ -73,17 +73,6 @@ jobs:
         use-mamba: true
         environment-file: ./comparison/tmap8/tmap8_env.yml
 
-    - name: Clone MOOSE
-      run: |
-        git clone https://github.com/idaholab/moose.git
-        cd moose
-        git checkout master
-
-    - name: Build MOOSE
-      working-directory: moose/test
-      shell: bash -l {0}
-      run: make -j 6
-
     - name: Clone TMAP8
       shell: bash -l {0}
       run: |
