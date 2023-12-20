@@ -149,6 +149,53 @@ jobs:
       run: |
         pvbatch visualisation.py
 
+  run-gallery-breeding-blanket:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: festim-review-env
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+        environment-file: environment.yml
+
+    - name: Run breeding blanket heat transfer
+      shell: bash -l {0}
+      working-directory: ./gallery/breeding_blanket
+      run: |
+        python heat_transfer_sim_and_slice.py
+
+    - name: Run breeding blanket fluid dynamics
+      shell: bash -l {0}
+      working-directory: ./gallery/breeding_blanket
+      run: |
+        python fluid_dynamics_sim.py
+
+    - name: Run breeding blanket hydrogen transport
+      shell: bash -l {0}
+      working-directory: ./gallery/breeding_blanket
+      run: |
+        python hydrogen_transport_sim.py
+
+    # # https://discourse.paraview.org/t/run-paraview-in-github-actions/13101
+    # - name: Install paraview
+    #   shell: bash
+    #   run: |
+    #     wget -O Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
+    #     tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
+    #     echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
+    
+    # - name: Run paraview
+    #   working-directory: ./gallery/breeding_blanket
+    #   shell: bash
+    #   run: |
+    #     pvbatch visualisation.py
+
   run-verification:
     runs-on: ubuntu-latest
     steps:

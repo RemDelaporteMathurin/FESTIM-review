@@ -197,10 +197,7 @@ my_model.exports = F.Exports(
 )
 
 # transient parameters
-my_model.dt = F.Stepsize(
-    initial_value=0.1, 
-    stepsize_change_ratio=1.05
-)
+my_model.dt = F.Stepsize(initial_value=1000, stepsize_change_ratio=1.05)
 
 
 # define solving parameters
