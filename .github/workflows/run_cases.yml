@@ -59,6 +59,35 @@ jobs:
       run: |
         python runner_festim.py
 
+    - name: Set up Conda for TMAP8
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: tmap8-env
+        miniforge-version: latest
+        use-mamba: true
+        environment-file: ./comparison/tmap8/tmap8_env.yml
+
+    - name: Clone TMAP8
+      shell: bash -l {0}
+      run: |
+        git clone https://github.com/idaholab/TMAP8.git
+        cd TMAP8
+        git checkout main
+        git submodule update --init moose
+
+    - name: Build TMAP8
+      working-directory: ./TMAP8
+      shell: bash -l {0}
+      run: |
+        make -j2
+        cp ./tmap8-opt ../comparison/tmap8/tmap8-opt
+    
+    - name: Run TMAP8 cases
+      working-directory: ./comparison/tmap8
+      shell: bash -l {0}
+      run: |
+        python runner_tmap.py
+
     - name: Run plotting script
       working-directory: ./comparison/tmap8
       shell: bash -l {0}

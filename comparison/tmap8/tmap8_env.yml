@@ -1,0 +1,7 @@
+name: tmap8-env
+channels:
+  - conda-forge
+  - defaults
+  - https://conda.software.inl.gov/public
+dependencies:
+  - moose-dev=2023.11.30
