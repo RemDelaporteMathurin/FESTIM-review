@@ -85,7 +85,14 @@ jobs:
       working-directory: ./TMAP8
       shell: bash -l {0}
       run: |
-        make -j8
+        make -j2
+        cp ./tmap8-opt ../comparison/tmap8/tmap8-opt
+    
+    - name: Run TMAP8 cases
+      working-directory: ./comparison/tmap8
+      shell: bash -l {0}
+      run: |
+        python runner_tmap8.py
 
   run-comparison-with-comsol:
     runs-on: ubuntu-latest
