@@ -82,7 +82,7 @@ jobs:
         git submodule update --init moose
 
     - name: Build TMAP8
-      working-directory: ./TMAP8/test
+      working-directory: ./TMAP8
       shell: bash -l {0}
       run: |
         make -j8
