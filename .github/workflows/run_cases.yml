@@ -170,13 +170,13 @@ jobs:
       run: |
         python heat_transfer_sim_and_slice.py
 
-    - name: Run breeding blanket heat transfer
+    - name: Run breeding blanket fluid dynamics
       shell: bash -l {0}
       working-directory: ./gallery/breeding_blanket
       run: |
-        python fluid_dynamics.py
+        python fluid_dynamics_sim.py
 
-    - name: Run breeding blanket heat transfer
+    - name: Run breeding blanket hydrogen transport
       shell: bash -l {0}
       working-directory: ./gallery/breeding_blanket
       run: |
