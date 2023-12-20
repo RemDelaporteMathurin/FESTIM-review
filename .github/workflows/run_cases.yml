@@ -92,7 +92,7 @@ jobs:
       working-directory: ./comparison/tmap8
       shell: bash -l {0}
       run: |
-        python runner_tmap8.py
+        python runner_tmap.py
 
   run-comparison-with-comsol:
     runs-on: ubuntu-latest
