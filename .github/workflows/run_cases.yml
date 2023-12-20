@@ -10,60 +10,54 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # - name: Set up Conda
-    #   uses: conda-incubator/setup-miniconda@v2
-    #   with:
-    #     activate-environment: myenv
-    #     miniforge-version: latest
-    #     use-mamba: true
-    #     channels: conda-forge
-    #     environment-file: environment.yml
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: myenv
+        miniforge-version: latest
+        use-mamba: true
+        channels: conda-forge
+        environment-file: environment.yml
 
-    # - name:  val-2b
-    #   working-directory: ./comparison/tmap8/val_2b
-    #   shell: bash -l {0}
-    #   run: |
-    #     python val_2b.py
-    #     python plot.py
+    - name:  val-2b
+      working-directory: ./comparison/tmap8/val_2b
+      shell: bash -l {0}
+      run: |
+        python val_2b.py
+        python plot.py
 
-    # - name: ver-1a
-    #   working-directory: ./comparison/tmap8/ver_1a
-    #   shell: bash -l {0}
-    #   run: |
-    #     python ver_1a.py
+    - name: ver-1a
+      working-directory: ./comparison/tmap8/ver_1a
+      shell: bash -l {0}
+      run: |
+        python ver_1a.py
 
-    # - name:  ver-1c
-    #   working-directory: ./comparison/tmap8/ver_1c
-    #   shell: bash -l {0}
-    #   run: |
-    #     python ver_1c.py
-    #     python plot.py
+    - name:  ver-1c
+      working-directory: ./comparison/tmap8/ver_1c
+      shell: bash -l {0}
+      run: |
+        python ver_1c.py
+        python plot.py
 
-    # - name:  ver-1d
-    #   working-directory: ./comparison/tmap8/ver_1d
-    #   shell: bash -l {0}
-    #   run: |
-    #     python tmap8_diffusion.py
-    #     python plot_flux.py
+    - name:  ver-1d
+      working-directory: ./comparison/tmap8/ver_1d
+      shell: bash -l {0}
+      run: |
+        python tmap8_diffusion.py
+        python plot_flux.py
 
-    # - name:  ver-1e
-    #   working-directory: ./comparison/tmap8/ver_1e
-    #   shell: bash -l {0}
-    #   run: |
-    #     python tmap8_ver1e.py
-    #     python plot.py
+    - name:  ver-1e
+      working-directory: ./comparison/tmap8/ver_1e
+      shell: bash -l {0}
+      run: |
+        python tmap8_ver1e.py
+        python plot.py
 
-    # - name: Run all scripts
-    #   working-directory: ./comparison/tmap8
-    #   shell: bash -l {0}
-    #   run: |
-    #     python runner_festim.py
-
-    # - name: Run plotting script
-    #   working-directory: ./comparison/tmap8
-    #   shell: bash -l {0}
-    #   run: |
-    #     python plot_comparison_performances.py
+    - name: Run all scripts
+      working-directory: ./comparison/tmap8
+      shell: bash -l {0}
+      run: |
+        python runner_festim.py
 
     - name: Set up Conda for TMAP8
       uses: conda-incubator/setup-miniconda@v2
@@ -93,6 +87,12 @@ jobs:
       shell: bash -l {0}
       run: |
         python runner_tmap.py
+
+    - name: Run plotting script
+      working-directory: ./comparison/tmap8
+      shell: bash -l {0}
+      run: |
+        python plot_comparison_performances.py
 
   run-comparison-with-comsol:
     runs-on: ubuntu-latest
