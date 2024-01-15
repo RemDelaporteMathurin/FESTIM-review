@@ -31,6 +31,7 @@ jobs:
       shell: bash -l {0}
       run: |
         python ver_1a.py
+        python plot.py
 
     - name:  ver-1c
       working-directory: ./comparison/tmap8/ver_1c
