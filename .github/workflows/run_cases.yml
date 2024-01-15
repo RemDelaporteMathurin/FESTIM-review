@@ -93,7 +93,6 @@ jobs:
         python runner_tmap.py
 
     - name: Compare performances and plot
-      if: github.ref == 'refs/heads/main'
       working-directory: ./comparison/tmap8
       shell: bash -l {0}
       run: |
