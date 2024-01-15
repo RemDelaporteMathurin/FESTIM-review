@@ -67,6 +67,8 @@ def analytical_expression_fractional_release(t, P_0, D, S, V, T, A, l):
     FR = 1 - P(t) / P_0
     where P(t) is the pressure at time t and P_0 is the initial pressure
 
+    Reference: https://doi.org/10.13182/FST05-A967 (Equation 4)
+
     Args:
         t (float, ndarray): time (s)
         P_0 (float): initial presure (Pa)

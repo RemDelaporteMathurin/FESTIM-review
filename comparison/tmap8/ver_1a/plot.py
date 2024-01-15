@@ -58,9 +58,8 @@ plt.figure()
 initial_quantity = initial_pressure * encl_vol / R / temperature * avogadro
 cumulative_released = cumtrapz(right_flux, t, initial=0) * encl_surf
 
-plt.plot(t, cumulative_released / initial_quantity, linestyle="--", label="FESTIM")
-
-plt.plot(data_tmap8["time"], data_tmap8["rhs_release"], label="TMAP8")
+plt.plot(t, cumulative_released / initial_quantity, label="FESTIM", color='tab:blue')
+plt.plot(data_tmap8["time"], data_tmap8["rhs_release"], label="TMAP8", linestyle="--", color='tab:orange')
 
 
 analytical = cumulative_flux(
@@ -73,12 +72,14 @@ analytical = cumulative_flux(
     A=encl_surf,
     l=l,
 )
-plt.plot(times, analytical, label="analytical")
+plt.plot(times, analytical, label="analytical", color="tab:green")
 
 plt.legend()
 plt.xlabel("Time (s)")
-plt.ylabel("Cumulative release")
+plt.ylabel("Cumulative relative release")
 plt.grid(alpha=0.3)
-
-
+plt.gca().spines[['right', 'top']].set_visible(False)
+plt.ylim(bottom=0)
+for ext in ["png", "svg", "pdf"]:
+    plt.savefig(f"ver-1a-results.{ext}")
 plt.show()
