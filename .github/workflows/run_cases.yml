@@ -60,6 +60,7 @@ jobs:
         python runner_festim.py
 
     - name: Set up Conda for TMAP8
+      if: github.ref == 'refs/heads/main'
       uses: conda-incubator/setup-miniconda@v2
       with:
         activate-environment: tmap8-env
@@ -68,6 +69,7 @@ jobs:
         environment-file: ./comparison/tmap8/tmap8_env.yml
 
     - name: Clone TMAP8
+      if: github.ref == 'refs/heads/main'
       shell: bash -l {0}
       run: |
         git clone https://github.com/idaholab/TMAP8.git
@@ -76,6 +78,7 @@ jobs:
         git submodule update --init moose
 
     - name: Build TMAP8
+      if: github.ref == 'refs/heads/main'
       working-directory: ./TMAP8
       shell: bash -l {0}
       run: |
@@ -83,12 +86,14 @@ jobs:
         cp ./tmap8-opt ../comparison/tmap8/tmap8-opt
     
     - name: Run TMAP8 cases
+      if: github.ref == 'refs/heads/main'
       working-directory: ./comparison/tmap8
       shell: bash -l {0}
       run: |
         python runner_tmap.py
 
     - name: Run plotting script
+      if: github.ref == 'refs/heads/main'
       working-directory: ./comparison/tmap8
       shell: bash -l {0}
       run: |
