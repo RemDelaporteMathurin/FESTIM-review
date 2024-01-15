@@ -1,6 +1,11 @@
 name: Run FESTIM scripts
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
 
 jobs:
 
