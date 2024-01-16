@@ -80,7 +80,7 @@ jobs:
       run: |
         git clone https://github.com/idaholab/TMAP8.git
         cd TMAP8
-        git checkout main
+        git checkout b84d41b
         git submodule update --init moose
 
     - name: Build TMAP8
