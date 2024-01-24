@@ -77,9 +77,9 @@ def analytical_expression_fractional_release_TMAP7(t, P_0, D, S, V, T, A, l):
     FR = 1 - P(t) / P_0
     where P(t) is the pressure at time t and P_0 is the initial pressure
 
-    Taken from https://inldigitallibrary.inl.gov/sites/sti/sti/4215153.pdf
-    Equation 4
+    Reference: https://doi.org/10.13182/FST05-A967 (Equation 4)
     Note: in the report, the expression of FR is given as P(T)/P_0, but it shown as 1 - P(t)/P_0 in the graph (Figure 1)
+
     Args:
         t (float, ndarray): time (s)
         P_0 (float): initial presure (Pa)

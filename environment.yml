@@ -9,5 +9,5 @@ dependencies:
   - scipy
   - paraview
   - pip:
-    - festim==1
+    - festim==1.1.1
     - meshio[all]
