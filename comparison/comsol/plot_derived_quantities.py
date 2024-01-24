@@ -84,19 +84,6 @@ colour_comsol = "tab:orange"
 
 fig, axs = plt.subplots(nrows=2, ncols=1)
 plt.sca(axs[0])
-(l_comsol,) = plt.plot(
-    [
-        total_trap_w_comsol,
-        total_trap_cu_comsol,
-        total_trap_cuzr_comsol,
-        total_trap_tot_comsol,
-    ],
-    label="COMSOL",
-    marker="o",
-)
-l_comsol.set_markerfacecolor(colors.to_rgba(colour_comsol, 0.7))
-l_comsol.set_color(colors.to_rgba(colour_comsol, 0.5))
-
 
 (l_festim,) = plt.plot(
     [
@@ -108,29 +95,46 @@ l_comsol.set_color(colors.to_rgba(colour_comsol, 0.5))
     label="FESTIM",
     marker="o",
 )
-l_festim.set_markerfacecolor(colors.to_rgba(colour_festim, 0.7))
-l_festim.set_color(colors.to_rgba(colour_festim, 0.5))
+l_festim.set_markerfacecolor(colors.to_rgba(colour_festim))
+l_festim.set_color(colors.to_rgba(colour_festim))
+
+plt.fill_between(
+    range(4),
+    [
+        total_trap_w_comsol,
+        total_trap_cu_comsol,
+        total_trap_cuzr_comsol,
+        total_trap_tot_comsol,
+    ],
+    facecolor="none",
+    edgecolor=colour_comsol,
+    label="COMSOL",
+    hatch="//",
+)
+
 
 plt.yscale("log")
 plt.ylabel("Trapped inventory (H)")
 plt.xticks(range(4), ["W", "Cu", "CuZr", "Total"])
 
 plt.sca(axs[1])
-(l_comsol,) = plt.plot(
-    [flux_coolant_comsol, flux_poloidal_comsol, flux_toroidal_comsol],
-    label="COMSOL",
-    marker="o",
-)
-l_comsol.set_markerfacecolor(colors.to_rgba(colour_comsol, 1))
-l_comsol.set_color(colors.to_rgba(colour_comsol, 0.5))
 
 (l_festim,) = plt.plot(
     [flux_coolant_festim, flux_poloidal_festim, flux_toroidal_festim],
     label="FESTIM",
     marker="o",
 )
-l_festim.set_markerfacecolor(colors.to_rgba(colour_festim, 1))
-l_festim.set_color(colors.to_rgba(colour_festim, 0.5))
+l_festim.set_markerfacecolor(colors.to_rgba(colour_festim))
+l_festim.set_color(colors.to_rgba(colour_festim))
+
+plt.fill_between(
+    range(3),
+    [flux_coolant_comsol, flux_poloidal_comsol, flux_toroidal_comsol],
+    facecolor="none",
+    edgecolor=colour_comsol,
+    label="COMSOL",
+    hatch="//",
+)
 
 plt.yscale("log")
 plt.ylabel("Flux (H/s)")

@@ -88,18 +88,20 @@ info = mobile_concentrationxdmf.GetDataInformation().DataInformation
 arrayInfo = info.GetArrayInformation(
     "mobile_concentration", vtk.vtkDataObject.FIELD_ASSOCIATION_POINTS
 )
-min_inv, max_inv = arrayInfo.GetComponentRange(0)
-print(min_inv, max_inv)
+min_value, max_value = arrayInfo.GetComponentRange(0)
+print(f"minimum: {min_value}, maximum: {max_value}")
+
+comsol_max = 5.847260017291671e21  # match the max from comsol for comparison
 
 # get color transfer function/color map for 'Color'
 colorLUT = GetColorTransferFunction("mobile_concentration")
 
 # Apply a preset using its name. Note this may not work as expected when presets have duplicate names.
 colorLUT.ApplyPreset("Viridis (matplotlib)", True)
-colorLUT.RescaleTransferFunction(0, max_inv)
+colorLUT.RescaleTransferFunction(0, comsol_max)
 
 op = GetOpacityTransferFunction("mobile_concentration")
-op.RescaleTransferFunction(0, max_inv)
+op.RescaleTransferFunction(0, comsol_max)
 
 # setup the color legend parameters for each legend in this view
 
