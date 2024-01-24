@@ -13,8 +13,8 @@ from ver_1a import (
     l,
 )
 from analytical_enclosure import (
-    analytical_expression_fractional_release,
-    cumulative_flux,
+    analytical_expression_fractional_release_TMAP7,
+    cumulative_flux_analytical,
 )
 import numpy as np
 from scipy.integrate import cumtrapz
@@ -34,7 +34,7 @@ plt.figure()
 plt.plot(t, fractional_release, linestyle="--", label="FESTIM")
 
 times = np.linspace(0, my_model.settings.final_time, 1000)
-analytical = analytical_expression_fractional_release(
+analytical = analytical_expression_fractional_release_TMAP7(
     t=times,
     P_0=initial_pressure,
     D=my_model.materials.materials[0].D_0,
@@ -63,7 +63,7 @@ plt.plot(t, cumulative_released / initial_quantity, linestyle="--", label="FESTI
 plt.plot(data_tmap8["time"], data_tmap8["rhs_release"], label="TMAP8")
 
 
-analytical = cumulative_flux(
+analytical = cumulative_flux_analytical(
     t=times,
     P_0=initial_pressure,
     D=my_model.materials.materials[0].D_0,
@@ -77,7 +77,7 @@ plt.plot(times, analytical, label="analytical")
 
 plt.legend()
 plt.xlabel("Time (s)")
-plt.ylabel("Cumulative release")
+plt.ylabel("Cumulative release (normalised)")
 plt.grid(alpha=0.3)
 
 
