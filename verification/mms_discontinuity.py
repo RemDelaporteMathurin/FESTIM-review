@@ -96,6 +96,14 @@ def div(u):
 f_left = -div(D_left * grad(exact_solution_left))
 f_right = -div(D_right * grad(exact_solution_right))
 
+
+print(
+    f"Source term left: {sp.latex(f_left.simplify().subs('x[0]', 'x').subs('x[1]', 'y'))}"
+)
+print(
+    f"Source term right: {sp.latex(f_right.simplify().subs('x[0]', 'x').subs('x[1]', 'y'))}"
+)
+
 my_model.sources = [
     F.Source(f_left, volume=1, field="0"),
     F.Source(f_right, volume=2, field="0"),
