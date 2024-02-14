@@ -92,6 +92,13 @@ def div(u):
 source_left = -div(lambda_left * grad(exact_solution))
 source_right = -div(lambda_right * grad(exact_solution))
 
+print(
+    f"Source term left: {sp.latex(source_left.simplify().subs('x[0]', 'x').subs('x[1]', 'y'))}"
+)
+print(
+    f"Source term right: {sp.latex(source_right.simplify().subs('x[0]', 'x').subs('x[1]', 'y'))}"
+)
+
 my_model.sources = [
     F.Source(source_left, volume=1, field="T"),
     F.Source(source_right, volume=2, field="T"),

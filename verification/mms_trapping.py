@@ -102,6 +102,13 @@ f_trap = (
     + p * exact_solution_trapped
 )
 
+print(
+    f"Source term left: {sp.latex(f_mobile.simplify().subs('x[0]', 'x').subs('x[1]', 'y'))}"
+)
+print(
+    f"Source term right: {sp.latex(f_trap.simplify().subs('x[0]', 'x').subs('x[1]', 'y'))}"
+)
+
 my_model.sources = [
     F.Source(f_mobile, volume=1, field="0"),
     F.Source(f_trap, volume=1, field="1"),
