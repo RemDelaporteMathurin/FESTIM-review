@@ -13,8 +13,9 @@ from ver_1a import (
     l,
 )
 from analytical_enclosure import (
-    analytical_expression_fractional_release,
-    cumulative_flux,
+    analytical_expression_fractional_release_TMAP7,
+    cumulative_flux_analytical,
+    analytical_expression_flux,
 )
 import numpy as np
 from scipy.integrate import cumtrapz
@@ -34,7 +35,7 @@ plt.figure()
 plt.plot(t, fractional_release, linestyle="--", label="FESTIM")
 
 times = np.linspace(0, my_model.settings.final_time, 1000)
-analytical = analytical_expression_fractional_release(
+analytical = analytical_expression_fractional_release_TMAP7(
     t=times,
     P_0=initial_pressure,
     D=my_model.materials.materials[0].D_0,
@@ -44,7 +45,7 @@ analytical = analytical_expression_fractional_release(
     A=encl_surf,
     l=l,
 )
-plt.plot(times, analytical, label="analytical")
+plt.plot(times, analytical, label="analytical", color="tab:green", linestyle="--")
 plt.legend()
 plt.xlabel("Time (s)")
 plt.ylabel("Fractional release")
@@ -52,17 +53,44 @@ plt.grid(alpha=0.3)
 
 plt.figure()
 plt.plot(t, right_flux)
+plt.plot(
+    times,
+    analytical_expression_flux(
+        t=times,
+        P_0=initial_pressure,
+        D=my_model.materials.materials[0].D_0,
+        S=left_bc.H_0,
+        V=encl_vol,
+        T=temperature,
+        A=encl_surf,
+        l=l,
+    ),
+    color="tab:green",
+    linestyle="--",
+    label="analytical",
+)
+plt.legend()
+plt.ylim(bottom=0)
+plt.ylabel("Flux at outer surface (H/m^2/s)")
+plt.xlabel("Time (s)")
 
 plt.figure()
 
 initial_quantity = initial_pressure * encl_vol / R / temperature * avogadro
 cumulative_released = cumtrapz(right_flux, t, initial=0) * encl_surf
 
-plt.plot(t, cumulative_released / initial_quantity, label="FESTIM", color='tab:blue')
-plt.plot(data_tmap8["time"], data_tmap8["rhs_release"], label="TMAP8", linestyle="--", color='tab:orange')
+plt.plot(t, cumulative_released / initial_quantity, label="FESTIM", color="tab:blue")
+plt.plot(
+    data_tmap8["time"],
+    data_tmap8["rhs_release"],
+    label="TMAP8",
+    linestyle="--",
+    color="tab:orange",
+)
+plt.ylim(bottom=0)
 
 
-analytical = cumulative_flux(
+analytical = cumulative_flux_analytical(
     t=times,
     P_0=initial_pressure,
     D=my_model.materials.materials[0].D_0,
@@ -78,7 +106,7 @@ plt.legend()
 plt.xlabel("Time (s)")
 plt.ylabel("Cumulative relative release")
 plt.grid(alpha=0.3)
-plt.gca().spines[['right', 'top']].set_visible(False)
+plt.gca().spines[["right", "top"]].set_visible(False)
 plt.ylim(bottom=0)
 for ext in ["png", "svg", "pdf"]:
     plt.savefig(f"ver-1a-results.{ext}")
