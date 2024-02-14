@@ -2,6 +2,7 @@ import festim as F
 import numpy as np
 import sympy as sp
 
+
 class PointValue(F.DerivedQuantity):
     def __init__(self, field, x) -> None:
         super().__init__(field)
@@ -10,6 +11,7 @@ class PointValue(F.DerivedQuantity):
 
     def compute(self):
         return self.function(self.x)
+
 
 my_model = F.Simulation()
 
@@ -29,7 +31,7 @@ derived_quantities = F.DerivedQuantities(
         PointValue("solute", x=10),
         PointValue("solute", x=12),
     ],
-    filename="results/derived_quantities.csv"
+    filename="results/derived_quantities.csv",
 )
 
 my_model.exports = [derived_quantities]
@@ -37,9 +39,7 @@ my_model.exports = [derived_quantities]
 my_model.dt = F.Stepsize(0.05)
 
 my_model.settings = F.Settings(
-    absolute_tolerance=1e-10,
-    relative_tolerance=1e-10,
-    final_time=100
+    absolute_tolerance=1e-10, relative_tolerance=1e-10, final_time=100
 )
 
 my_model.initialise()
