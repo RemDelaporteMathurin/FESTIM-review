@@ -108,16 +108,9 @@ pressure_unit = 1 # number of pressure units in a Pascal
   type = Transient
   dt = .1
   end_time = 140
-  solve_type = PJFNK
+  solve_type = NEWTON
   automatic_scaling = true
   dtmin = .1
-  l_max_its = 30
-  nl_max_its = 5
-  petsc_options = '-snes_converged_reason -ksp_monitor_true_residual'
-  petsc_options_iname = '-pc_type -mat_mffd_err'
-  petsc_options_value = 'lu       1e-5'
-  line_search = 'bt'
-  scheme = 'crank-nicolson'
   timestep_tolerance = 1e-8
 []
 
