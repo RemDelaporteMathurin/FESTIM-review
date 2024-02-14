@@ -15,6 +15,7 @@ from ver_1a import (
 from analytical_enclosure import (
     analytical_expression_fractional_release_TMAP7,
     cumulative_flux_analytical,
+    analytical_expression_flux,
 )
 import numpy as np
 from scipy.integrate import cumtrapz
@@ -44,7 +45,7 @@ analytical = analytical_expression_fractional_release_TMAP7(
     A=encl_surf,
     l=l,
 )
-plt.plot(times, analytical, label="analytical")
+plt.plot(times, analytical, label="analytical", color="tab:green", linestyle="--")
 plt.legend()
 plt.xlabel("Time (s)")
 plt.ylabel("Fractional release")
@@ -52,6 +53,26 @@ plt.grid(alpha=0.3)
 
 plt.figure()
 plt.plot(t, right_flux)
+plt.plot(
+    times,
+    analytical_expression_flux(
+        t=times,
+        P_0=initial_pressure,
+        D=my_model.materials.materials[0].D_0,
+        S=left_bc.H_0,
+        V=encl_vol,
+        T=temperature,
+        A=encl_surf,
+        l=l,
+    ),
+    color="tab:green",
+    linestyle="--",
+    label="analytical",
+)
+plt.legend()
+plt.ylim(bottom=0)
+plt.ylabel("Flux at outer surface (H/m^2/s)")
+plt.xlabel("Time (s)")
 
 plt.figure()
 
@@ -66,6 +87,7 @@ plt.plot(
     linestyle="--",
     color="tab:orange",
 )
+plt.ylim(bottom=0)
 
 
 analytical = cumulative_flux_analytical(

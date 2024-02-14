@@ -57,7 +57,7 @@ class CustomSimulation(F.Simulation):
 
 my_model = CustomSimulation()
 
-vertices = np.linspace(0, l, 10)
+vertices = np.linspace(0, l, 100)
 
 my_model.mesh = F.MeshFromVertices(vertices)
 
@@ -96,6 +96,7 @@ my_model.exports = [
 
 my_model.dt = F.Stepsize(initial_value=0.1)
 
+# my_model.log_level = 10
 
 my_model.initialise()
 my_model.run()

@@ -105,7 +105,6 @@ def analytical_expression_fractional_release_TMAP7(t, P_0, D, S, V, T, A, l):
     return fractional_release
 
 
-# FIXME this doesn't work
 # taken from https://mooseframework.inl.gov/TMAP8/verification/ver-1a.html#longhurst1992verification
 def analytical_expression_fractional_release_TMAP8(t, D, S, V, T, A, l):
     """
@@ -128,7 +127,7 @@ def analytical_expression_fractional_release_TMAP8(t, D, S, V, T, A, l):
     roots = get_roots_bis(L=L, alpha_max=2000, step=3e-4)
     roots = roots[:, np.newaxis]
     sec = 1 / np.cos(roots)
-    summation = (2 * L * sec - np.exp(-(roots**2) * D * t / l**2)) / (
+    summation = (2 * L * sec * np.exp(-(roots**2) * D * t / l**2)) / (
         L * (L + 1) + roots**2
     )
     last_term = summation[-1]
@@ -167,6 +166,7 @@ def analytical_expression_flux(t, P_0, D, S, V, T, A, l):
 
     print(last_term / summation)
     flux = 2 * S * P_0 * L * D * summation
+    flux[0] = 0
     return flux
 
 
