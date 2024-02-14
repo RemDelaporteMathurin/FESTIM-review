@@ -80,6 +80,24 @@ model_charging.settings = F.Settings(
     chemical_pot=True,
 )
 
+
+class CustomStepsize(F.Stepsize):
+    def adapt(self, t, nb_it, converged):
+        super().adapt(t, nb_it, converged)
+        if t > 170000:
+            if float(self.value) > 60:
+                self.value.assign(60)
+        elif t > 0:
+            if float(self.value) > 100:
+                self.value.assign(100)
+
+
+# model_charging.dt = CustomStepsize(
+#     initial_value=10,
+#     stepsize_change_ratio=1.1,
+#     milestones=[time_charging],
+# )
+
 model_charging.dt = F.Stepsize(
     initial_value=10,
     stepsize_change_ratio=1.1,
@@ -88,13 +106,22 @@ model_charging.dt = F.Stepsize(
     milestones=[time_charging],
 )
 
+derived_quantities = F.DerivedQuantities(
+    [
+        F.HydrogenFlux(surface=1),
+        F.AverageVolume("T", volume=1),
+        F.AverageVolume("T", volume=2),
+    ],
+    filename="results/derived_quantities_charging.csv",
+)
 model_charging.exports = [
-    F.XDMFExport(
-        "solute",
-        filename="mobile_concentration_checkpoint.xdmf",
-        checkpoint=True,
-        mode="last",
-    )
+    # F.XDMFExport(
+    #     "solute",
+    #     filename="mobile_concentration_checkpoint.xdmf",
+    #     checkpoint=True,
+    #     mode="last",
+    # ),
+    # derived_quantities,
 ]
 
 # model_charging.log_level = 20
