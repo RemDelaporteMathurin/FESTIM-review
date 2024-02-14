@@ -74,8 +74,8 @@ model_charging.T = F.Temperature(
 )
 
 model_charging.settings = F.Settings(
-    absolute_tolerance=1e10,
-    relative_tolerance=1e-10,
+    absolute_tolerance=1e15,
+    relative_tolerance=1e-8,
     final_time=time_start_tds,
     chemical_pot=True,
 )
@@ -92,37 +92,11 @@ class CustomStepsize(F.Stepsize):
                 self.value.assign(100)
 
 
-# model_charging.dt = CustomStepsize(
-#     initial_value=10,
-#     stepsize_change_ratio=1.1,
-#     milestones=[time_charging],
-# )
-
-model_charging.dt = F.Stepsize(
-    initial_value=10,
+model_charging.dt = CustomStepsize(
+    initial_value=1,
     stepsize_change_ratio=1.1,
-    t_stop=time_charging,
-    stepsize_stop_max=60,
     milestones=[time_charging],
 )
-
-derived_quantities = F.DerivedQuantities(
-    [
-        F.HydrogenFlux(surface=1),
-        F.AverageVolume("T", volume=1),
-        F.AverageVolume("T", volume=2),
-    ],
-    filename="results/derived_quantities_charging.csv",
-)
-model_charging.exports = [
-    # F.XDMFExport(
-    #     "solute",
-    #     filename="mobile_concentration_checkpoint.xdmf",
-    #     checkpoint=True,
-    #     mode="last",
-    # ),
-    # derived_quantities,
-]
 
 # model_charging.log_level = 20
 model_charging.initialise()
@@ -140,6 +114,7 @@ model_desorb.mesh = model_charging.mesh
 model_desorb.boundary_conditions = model_charging.boundary_conditions
 
 model_desorb.settings = model_charging.settings
+model_desorb.settings.absolute_tolerance = 1e10
 model_desorb.settings.final_time = time_start_tds + tds_duration
 
 model_desorb.dt = model_charging.dt
