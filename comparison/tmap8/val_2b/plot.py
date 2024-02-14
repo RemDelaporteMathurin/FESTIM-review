@@ -42,3 +42,17 @@ plt.gca().spines[["right", "top"]].set_visible(False)
 for ext in ["png", "svg", "pdf"]:
     plt.savefig(f"val-2b-results.{ext}")
 plt.show()
+
+plt.plot(data["ts"], np.diff(data["ts"], prepend=1))
+plt.plot(
+    data_tmap8["time"][np.where(t_tmap8 > 182400)],
+    np.diff(data_tmap8["time"][np.where(t_tmap8 > 182400)], prepend=1),
+)
+plt.show()
+
+plt.plot(data_charging["ts"], np.diff(data_charging["ts"], prepend=100))
+plt.plot(
+    data_tmap8["time"][np.where(t_tmap8 < 182400)],
+    np.diff(data_tmap8["time"][np.where(t_tmap8 < 182400)], prepend=0),
+)
+plt.show()
