@@ -98,6 +98,15 @@ model_charging.dt = CustomStepsize(
     milestones=[time_charging],
 )
 
+model_charging.exports = [
+    F.XDMFExport(
+        "solute",
+        filename="mobile_concentration_checkpoint.xdmf",
+        checkpoint=True,
+        mode="last",
+    )
+]
+
 # model_charging.log_level = 20
 model_charging.initialise()
 model_charging.run()
