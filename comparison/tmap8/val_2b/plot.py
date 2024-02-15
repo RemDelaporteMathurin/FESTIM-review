@@ -3,9 +3,6 @@ import numpy as np
 
 
 data = np.genfromtxt("results/derived_quantities.csv", names=True, delimiter=",")
-data_charging = np.genfromtxt(
-    "results/derived_quantities_charging.csv", names=True, delimiter=","
-)
 
 t = data["ts"]
 temp1 = data["Average_T_volume_1"]
@@ -14,8 +11,6 @@ temp2 = data["Average_T_volume_2"]
 desorption_flux = -2 * data["Flux_surface_1_solute"]
 
 data_tmap8 = np.genfromtxt("val-2b_out.csv", names=True, delimiter=",")
-print(len(data_tmap8))
-print(len(data) + len(data_charging))
 t_tmap8 = data_tmap8["time"]
 idx_tmap8 = np.where(t_tmap8 > 182400)
 temp1_tmap8 = data_tmap8["Temp"][idx_tmap8]
@@ -41,18 +36,4 @@ plt.legend()
 plt.gca().spines[["right", "top"]].set_visible(False)
 for ext in ["png", "svg", "pdf"]:
     plt.savefig(f"val-2b-results.{ext}")
-plt.show()
-
-plt.plot(data["ts"], np.diff(data["ts"], prepend=1))
-plt.plot(
-    data_tmap8["time"][np.where(t_tmap8 > 182400)],
-    np.diff(data_tmap8["time"][np.where(t_tmap8 > 182400)], prepend=1),
-)
-plt.show()
-
-plt.plot(data_charging["ts"], np.diff(data_charging["ts"], prepend=100))
-plt.plot(
-    data_tmap8["time"][np.where(t_tmap8 < 182400)],
-    np.diff(data_tmap8["time"][np.where(t_tmap8 < 182400)], prepend=0),
-)
 plt.show()
