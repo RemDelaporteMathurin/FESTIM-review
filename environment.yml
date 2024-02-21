@@ -4,10 +4,10 @@ channels:
   - defaults
 dependencies:
   - fenics
-  - matplotlib
+  - matplotlib=3.8.3
   - numpy<1.25
-  - scipy
-  - paraview
+  - scipy==1.12.0
+  - paraview=5.11.2
   - pip:
     - festim==1.1.1
-    - meshio[all]
+    - meshio[all]==5.3.5
