@@ -10,7 +10,7 @@ on:
 jobs:
 
   run-comparison-with-tmap:
-    runs-on: ubuntu-22.04.3
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -105,7 +105,7 @@ jobs:
         python plot_comparison_performances.py
 
   run-comparison-with-comsol:
-    runs-on: ubuntu-22.04.3
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -127,7 +127,7 @@ jobs:
           pvbatch visualisation_retention.py
 
   run-gallery-tds:
-    runs-on: ubuntu-22.04.3
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -154,7 +154,7 @@ jobs:
         python tds_ogorodnikova.py
 
   run-gallery-monoblock:
-    runs-on: ubuntu-22.04.3
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -189,7 +189,7 @@ jobs:
         pvbatch visualisation.py
 
   run-gallery-breeding-blanket:
-    runs-on: ubuntu-22.04.3
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -236,7 +236,7 @@ jobs:
     #     pvbatch visualisation.py
 
   run-verification:
-    runs-on: ubuntu-22.04.3
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
