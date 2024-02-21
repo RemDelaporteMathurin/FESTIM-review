@@ -37,8 +37,8 @@ my_model.boundary_conditions = [
 
 my_model.dt = F.Stepsize(0.2)
 my_model.settings = F.Settings(
-    absolute_tolerance=1e-10,
-    relative_tolerance=1e-10,
+    absolute_tolerance=1e-12,
+    relative_tolerance=1e-50,
     final_time=50,
     chemical_pot=False,
 )
@@ -48,7 +48,7 @@ derived_quantities = F.DerivedQuantities(
         PointValue(field="solute", x=l_pyc + 15.75e-6),
         PointValue(field="solute", x=20e-6),
     ],
-    filename="./results.csv"
+    filename="./results.csv",
 )
 xdmf_exports = [F.XDMFExport("solute", checkpoint=False)] + [derived_quantities]
 

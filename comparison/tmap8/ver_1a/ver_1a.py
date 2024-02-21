@@ -57,7 +57,7 @@ class CustomSimulation(F.Simulation):
 
 my_model = CustomSimulation()
 
-vertices = np.linspace(0, l, 100)
+vertices = np.linspace(0, l, 10)
 
 my_model.mesh = F.MeshFromVertices(vertices)
 

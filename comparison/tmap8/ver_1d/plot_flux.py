@@ -45,7 +45,7 @@ plt.fill_between(
 )
 (l_festim,) = plt.plot(t_festim, flux_festim, label="FESTIM")
 (l_tmap8,) = plt.plot(t_tmap8, flux_tmap8, label="TMAP8", linestyle="dashed")
-plt.ylabel("Hydrogen flux")
+plt.ylabel("Normalised hydrogen flux")
 plt.legend()
 plt.ylim(bottom=0)
 
@@ -55,23 +55,29 @@ idx_tmap = np.where(flux_tmap8 > 1e-4)
 idx_festim = np.where(flux_festim > 1e-4)
 plt.plot(
     t_festim[idx_festim],
-    flux_festim[idx_festim] / exact_flux(t_festim[idx_festim]),
+    abs(flux_festim[idx_festim] - exact_flux(t_festim[idx_festim]))
+    / exact_flux(t_festim[idx_festim]),
     label="FESTIM",
     color=l_festim.get_color(),
 )
 plt.plot(
     t_tmap8[idx_tmap],
-    flux_tmap8[idx_tmap] / exact_flux(t_tmap8[idx_tmap]),
+    abs(flux_tmap8[idx_tmap] - exact_flux(t_tmap8[idx_tmap]))
+    / exact_flux(t_tmap8[idx_tmap]),
     label="TMAP8",
     linestyle="dashed",
     color=l_tmap8.get_color(),
 )
-plt.ylabel("$J_\mathrm{computed}/J_\mathrm{analytical}$")
+plt.ylabel("Relative error")
 plt.xlabel("Time")
-plt.ylim(bottom=1)
+plt.ylim(bottom=0)
 
 festim_error = ((flux_festim[1:] - exact_flux(t_festim[1:])) ** 2).mean()
 tmap_error = ((flux_tmap8[1:] - exact_flux(t_tmap8[1:])) ** 2).mean()
+
+for ax in axs:
+    ax.grid(True, alpha=0.3)
+    ax.spines[["right", "top"]].set_visible(False)
 
 print(f"MSE FESTIM: {festim_error:.2e}")
 print(f"MSE TMAP8 : {tmap_error:.2e}")

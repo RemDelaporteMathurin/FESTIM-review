@@ -52,10 +52,8 @@
   end_time = 100
   dt = .05
   solve_type = NEWTON
-  petsc_options_iname = '-pc_type -pc_hypre_type'
-  petsc_options_value = 'hypre boomeramg'
-  l_tol = 1e-9
-  # scheme = 'crank-nicolson'
+  nl_rel_tol = 1e-10
+  nl_abs_tol = 1e-10
   timestep_tolerance = 1e-8
 []
 

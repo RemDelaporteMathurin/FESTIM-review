@@ -74,17 +74,27 @@ model_charging.T = F.Temperature(
 )
 
 model_charging.settings = F.Settings(
-    absolute_tolerance=1e10,
-    relative_tolerance=1e-10,
+    absolute_tolerance=1e15,
+    relative_tolerance=1e-8,
     final_time=time_start_tds,
     chemical_pot=True,
 )
 
-model_charging.dt = F.Stepsize(
-    initial_value=10,
+
+class CustomStepsize(F.Stepsize):
+    def adapt(self, t, nb_it, converged):
+        super().adapt(t, nb_it, converged)
+        if t > 170000:
+            if float(self.value) > 60:
+                self.value.assign(60)
+        elif t > 0:
+            if float(self.value) > 100:
+                self.value.assign(100)
+
+
+model_charging.dt = CustomStepsize(
+    initial_value=1,
     stepsize_change_ratio=1.1,
-    t_stop=time_charging,
-    stepsize_stop_max=60,
     milestones=[time_charging],
 )
 
@@ -113,6 +123,7 @@ model_desorb.mesh = model_charging.mesh
 model_desorb.boundary_conditions = model_charging.boundary_conditions
 
 model_desorb.settings = model_charging.settings
+model_desorb.settings.absolute_tolerance = 1e10
 model_desorb.settings.final_time = time_start_tds + tds_duration
 
 model_desorb.dt = model_charging.dt
