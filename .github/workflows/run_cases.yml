@@ -131,6 +131,7 @@ jobs:
       
       - name: Plot COMSOL
         working-directory: ./comparison/comsol
+        shell: bash -l {0}
         run: |
           python visualisation_cm.py
           python visualisation_temperature.py
@@ -194,7 +195,7 @@ jobs:
     
     - name: Run paraview
       working-directory: ./gallery/monoblock
-      shell: bash
+      shell: bash -l {0}
       run: |
         python visualisation.py
 
