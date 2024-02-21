@@ -129,6 +129,9 @@ jobs:
       #     tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
       #     echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
       
+      - name: update apt-get
+        run: apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+
       - name: Plot COMSOL
         working-directory: ./comparison/comsol
         shell: bash -l {0}
@@ -193,6 +196,9 @@ jobs:
     #     tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
     #     echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
     
+    - name: update apt-get
+    run: apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+
     - name: Run paraview
       working-directory: ./gallery/monoblock
       shell: bash -l {0}
