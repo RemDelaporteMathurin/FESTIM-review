@@ -130,7 +130,7 @@ jobs:
       #     echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
       
       - name: update apt-get
-        run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6  -y
+        run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6 libgl1-mesa-dev libglib2.0-0 -y
 
       - name: Plot COMSOL
         working-directory: ./comparison/comsol
@@ -197,7 +197,7 @@ jobs:
     #     echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
     
     - name: update apt-get
-      run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6  -y
+      run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6 libgl1-mesa-dev libglib2.0-0 -y
 
     - name: Run paraview
       working-directory: ./gallery/monoblock
