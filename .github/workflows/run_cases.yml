@@ -111,20 +111,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # https://discourse.paraview.org/t/run-paraview-in-github-actions/13101
-      - name: Install Paraview
-        shell: bash
-        run: |
-          wget -O Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
-          tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
-          echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
+
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: myenv
+          miniforge-version: latest
+          use-mamba: true
+          channels: conda-forge
+          environment-file: environment.yml
+
+      # # https://discourse.paraview.org/t/run-paraview-in-github-actions/13101
+      # - name: Install Paraview
+      #   shell: bash
+      #   run: |
+      #     wget -O Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
+      #     tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
+      #     echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
       
+      - name: update apt-get
+        run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6 libgl1-mesa-dev libglib2.0-0 -y
+
       - name: Plot COMSOL
         working-directory: ./comparison/comsol
+        shell: bash -l {0}
         run: |
-          pvbatch visualisation_cm.py
-          pvbatch visualisation_temperature.py
-          pvbatch visualisation_retention.py
+          python visualisation_cm.py
+          python visualisation_temperature.py
+          python visualisation_retention.py
 
   run-gallery-tds:
     runs-on: ubuntu-latest
@@ -174,19 +188,22 @@ jobs:
       run: |
         python main.py
 
-    # https://discourse.paraview.org/t/run-paraview-in-github-actions/13101
-    - name: Install paraview
-      shell: bash
-      run: |
-        wget -O Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
-        tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
-        echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
+    # # https://discourse.paraview.org/t/run-paraview-in-github-actions/13101
+    # - name: Install paraview
+    #   shell: bash
+    #   run: |
+    #     wget -O Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.11&type=binary&os=Linux&downloadFile=ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz"
+    #     tar -xf Paraview-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64.tar.gz
+    #     echo "${GITHUB_WORKSPACE}/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/bin" >> "${GITHUB_PATH}"
     
+    - name: update apt-get
+      run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6 libgl1-mesa-dev libglib2.0-0 -y
+
     - name: Run paraview
       working-directory: ./gallery/monoblock
-      shell: bash
+      shell: bash -l {0}
       run: |
-        pvbatch visualisation.py
+        python visualisation.py
 
   run-gallery-breeding-blanket:
     runs-on: ubuntu-latest
@@ -233,7 +250,7 @@ jobs:
     #   working-directory: ./gallery/breeding_blanket
     #   shell: bash
     #   run: |
-    #     pvbatch visualisation.py
+    #     python visualisation.py
 
   run-verification:
     runs-on: ubuntu-latest
